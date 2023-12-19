@@ -1,0 +1,90 @@
+<?php
+
+use CodeIgniter\Router\RouteCollection;
+
+
+/**
+ * @var RouteCollection $routes
+ */
+
+// default
+$routes->get('/', 'Auth::index');
+
+// auth
+$routes->group('auth', static function ($routes) {
+	$routes->post('login', 'Auth::login');
+	$routes->get('logout', 'Auth::logout');
+});
+
+// dashboard`
+$routes->group('dashboard', static function ($routes) {
+	$routes->get('/', 'Dashboard::index');
+	$routes->get('data-barang', 'Dashboard::dataBarang');
+});
+
+
+$routes->group('barang', static function ($routes) {
+	$routes->get('/', 'Barang::index');
+	$routes->get('tambah', 'Barang::tambahBarang');
+	$routes->post('simpan', 'Barang::simpanBarang');
+	$routes->delete('(:num)', 'Barang::hapusBarang/$1');
+	$routes->get('edit/(:num)', 'Barang::editBarang/$1');
+	$routes->post('update/(:num)', 'Barang::updateBarang/$1');
+	$routes->get('detail/(:num)', 'Barang::detailBarang/$1');
+	$routes->get('cetak-barang-habis', 'Barang::cetakBarangHabis');
+});
+
+
+$routes->group('kategori', static function ($routes) {
+	$routes->get('/', 'Kategori::index');
+	$routes->get('tambah', 'Kategori::tambahKategori');
+	$routes->delete('(:num)', 'Kategori::hapusKategori/$1');
+	$routes->post('simpan', 'Kategori::simpanKategori');
+	$routes->get('edit/(:num)', 'Kategori::editKategori/$1');
+	$routes->post('update/(:num)', 'Kategori::updateKategori/$1');
+});
+
+
+$routes->group('barang_masuk', static function ($routes) {
+	$routes->get('/', 'BarangMasuk::index');
+	$routes->get('tambah', 'BarangMasuk::tambahBrgMasuk');
+	$routes->post('simpan', 'BarangMasuk::simpanBrgMasuk');
+	$routes->delete('(:num)', 'BarangMasuk::hapusBrgMasuk/$1');
+	$routes->get('rep-barang-masuk', 'BarangMasuk::repMasuk');
+	$routes->get('filtered-data', 'BarangMasuk::filterData');
+});
+
+
+$routes->group('barang_keluar', static function ($routes) {
+	$routes->get('/', 'BarangKeluar::index');
+	$routes->get('tambah', 'BarangKeluar::tambahBrgKeluar');
+	$routes->post('simpan', 'BarangKeluar::simpanBrgKeluar');
+	$routes->delete('(:num)', 'barangKeluar::hapusBrgKeluar/$1');
+	$routes->get('rep-barang-keluar', 'BarangKeluar::repKeluar');
+	$routes->get('filtered-data', 'BarangKeluar::filterData');
+});
+
+$routes->group('supplier', static function ($routes) {
+	$routes->get('/', 'Supplier::index');
+	$routes->get('tambah', 'Supplier::tambahSupplier');
+	$routes->post('simpan', 'Supplier::simpanSupplier');
+	$routes->get('edit/(:num)', 'Supplier::editSupplier/$1');
+	$routes->post('update/(:num)', 'Supplier::updateSupplier/$1');
+	$routes->delete('(:num)', 'Supplier::hapusSupplier/$1');
+});
+
+
+$routes->group('user', static function ($routes) {
+	$routes->get('/', 'User::index');
+	$routes->get('tambah', 'User::tambahUser');
+	$routes->post('simpan', 'User::simpanUser');
+	$routes->get('edit/(:num)', 'User::editUser/$1');
+	$routes->post('update/(:num)', 'User::updateUser/$1');
+	$routes->delete('(:num)', 'User::hapusUser/$1');
+});
+
+$routes->group('account', static function ($routes) {
+	$routes->get('/', 'Account::index');
+	$routes->post('ubah-password', 'Account::ubahPassword');
+	$routes->get('forgot-password', 'Account::forgotPassword');
+});
