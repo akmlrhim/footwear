@@ -45,7 +45,6 @@
 						<input type="password" class="input" name="password" autocomplete="off" value="<?= old('password'); ?>">
 					</div>
 				</div>
-
 				<div class="g-recaptcha" style="margin-top:10px;" data-sitekey="6LespSApAAAAAI4DecpPRIbb2sLesI6-gq5Ul0qb"></div>
 				<button type="sumbit" class="btn">Login</button>
 			</form>
