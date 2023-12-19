@@ -8,7 +8,6 @@ use App\Models\BarangModel;
 use App\Models\SupplierModel;
 use Dompdf\Dompdf;
 use Laminas\Escaper\Escaper;
-use LDAP\Result;
 
 class BarangMasuk extends BaseController
 {
