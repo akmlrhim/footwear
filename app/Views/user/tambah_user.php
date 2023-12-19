@@ -28,7 +28,19 @@
 							</div>
 							<div class="form-group ">
 								<label for="Nama">Password : </label>
-								<input type="password" name="password" class="form-control" autocomplete="off" value="<?= old('password'); ?>">
+								<div class="input-group">
+									<input type="password" id="password" name="password" class="form-control">
+									<div class="input-group-append">
+										<button type="button" id="togglePassword" class="btn btn-outline-secondary">
+											<i class="fas fa-eye"></i>
+										</button>
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group ">
+								<label for="Nama">Email : </label>
+								<input type="email" name="email" class="form-control" autocomplete="off" value="<?= old('email'); ?>">
 							</div>
 
 							<div class="form-group ">
@@ -48,6 +60,24 @@
 		</div>
 	</div>
 </section>
+<?= $this->endSection(); ?>
 
+<?= $this->section('script'); ?>
+<script>
+	const passwordInput = document.getElementById('password');
+	const toggleButton = document.getElementById('togglePassword');
 
+	toggleButton.addEventListener('click', function() {
+		const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+		passwordInput.setAttribute('type', type);
+
+		if (type === 'password') {
+			toggleButton.querySelector('i').classList.remove('fa-eye-slash');
+			toggleButton.querySelector('i').classList.add('fa-eye');
+		} else {
+			toggleButton.querySelector('i').classList.remove('fa-eye');
+			toggleButton.querySelector('i').classList.add('fa-eye-slash');
+		}
+	});
+</script>
 <?= $this->endSection(); ?>

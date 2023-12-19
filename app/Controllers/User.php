@@ -58,6 +58,14 @@ class User extends BaseController
                     'is_unique' => '{field} Sudah Terdaftar.'
                 ]
             ],
+            'email' => [
+                'label' => 'Email',
+                'rules' => 'required|is_unique[users.username]',
+                'errors' => [
+                    'required' => '{field} Tidak Boleh Kosong.',
+                    'is_unique' => '{field} Sudah Terdaftar.'
+                ]
+            ],
             'password' => [
                 'label' => 'Password',
                 'rules' => 'required|min_length[8]|regex_match[/^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s])[\w\d\W]{8,}$/]',
@@ -76,16 +84,18 @@ class User extends BaseController
             ]
         ])) {
 
-            $nama_lengkap = $this->request->getPost('nama_lengkap');
-            $username = $this->request->getPost('username');
-            $password = $this->request->getPost('password');
-            $role = $this->request->getPost('role');
+            $nama_lengkap = esc($this->request->getPost('nama_lengkap'));
+            $username = esc($this->request->getPost('username'));
+            $email = esc($this->request->getPost('email'));
+            $password = esc($this->request->getPost('password'));
+            $role = esc($this->request->getPost('role'));
 
             $password = password_hash("$password", PASSWORD_BCRYPT);
 
             $data = [
                 'nama_lengkap' => $nama_lengkap,
                 'username' => $username,
+                'email' => $email,
                 'password' => $password,
                 'role' => $role
             ];
