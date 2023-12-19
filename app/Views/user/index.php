@@ -28,6 +28,7 @@
 							</tr>
 						</thead>
 						<tbody>
+							<?php  ?>
 							<?php $no = 1 ?>
 							<?php foreach ($user as $usr) : ?>
 								<tr>
