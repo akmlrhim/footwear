@@ -7,7 +7,6 @@ use App\Models\BarangMasukModel;
 use App\Models\BarangModel;
 use App\Models\SupplierModel;
 use Dompdf\Dompdf;
-use Laminas\Escaper\Escaper;
 
 class BarangMasuk extends BaseController
 {
