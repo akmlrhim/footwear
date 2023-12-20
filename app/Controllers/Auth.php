@@ -61,10 +61,9 @@ class Auth extends BaseController
                 session()->set('id_user', $user['id_user']);
                 session()->set('nama_lengkap', $user['nama_lengkap']);
                 session()->set('username', $user['username']);
-                session()->set('email', $user['email']);
                 session()->set('password', $user['password']);
                 session()->set('role', $user['role']);
-                return redirect()->to(base_url('/dashboard'))->with('pesan', 'Login Berhasil');
+                return redirect()->to(base_url('dashboard'))->with('pesan', 'Login Berhasil');
             } else {
                 session()->setFlashdata('pesan', 'Username atau password salah.');
                 return redirect()->to(base_url('/'))->withInput();

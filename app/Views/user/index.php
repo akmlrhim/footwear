@@ -22,7 +22,6 @@
 								<th scope="col">No</th>
 								<th scope="col">Nama</th>
 								<th scope="col">Username</th>
-								<th scope="col">Email</th>
 								<th scope="col">Role</th>
 								<th scope="col">Aksi</th>
 							</tr>
@@ -34,10 +33,8 @@
 									<th><?= $no++; ?></th>
 									<td><?= esc($usr['nama_lengkap']); ?></td>
 									<td><?= esc($usr['username']); ?></td>
-									<td><?= esc($usr['email']); ?></td>
 									<td><?= esc($usr['role']); ?></td>
 									<td>
-										<a href="<?= base_url('account/forgot-password'); ?>" class="btn btn-info btn-sm"><i class="fas fa-lock"></i></a>
 										<a href="<?= base_url('user/edit/' . $usr['id_user']); ?>" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
 										<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal<?= $usr['id_user'] ?>">
 											<i class="fas fa-trash"></i>

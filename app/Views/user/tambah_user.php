@@ -39,11 +39,6 @@
 							</div>
 
 							<div class="form-group ">
-								<label for="Nama">Email : </label>
-								<input type="email" name="email" class="form-control" autocomplete="off" value="<?= old('email'); ?>">
-							</div>
-
-							<div class="form-group ">
 								<label for="select-roles">Roles : </label>
 								<select name="role" class="form-control">
 									<option value="">-- Pilih Role --</option>

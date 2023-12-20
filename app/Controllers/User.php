@@ -58,14 +58,6 @@ class User extends BaseController
                     'is_unique' => '{field} Sudah Terdaftar.'
                 ]
             ],
-            'email' => [
-                'label' => 'Email',
-                'rules' => 'required|is_unique[users.username]',
-                'errors' => [
-                    'required' => '{field} Tidak Boleh Kosong.',
-                    'is_unique' => '{field} Sudah Terdaftar.'
-                ]
-            ],
             'password' => [
                 'label' => 'Password',
                 'rules' => 'required|min_length[8]|regex_match[/^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s])[\w\d\W]{8,}$/]',
@@ -86,7 +78,6 @@ class User extends BaseController
 
             $nama_lengkap = esc($this->request->getPost('nama_lengkap'));
             $username = esc($this->request->getPost('username'));
-            $email = esc($this->request->getPost('email'));
             $password = esc($this->request->getPost('password'));
             $role = esc($this->request->getPost('role'));
 
@@ -95,7 +86,6 @@ class User extends BaseController
             $data = [
                 'nama_lengkap' => $nama_lengkap,
                 'username' => $username,
-                'email' => $email,
                 'password' => $password,
                 'role' => $role
             ];
@@ -138,14 +128,6 @@ class User extends BaseController
                     'is_unique' => '{field} Sudah Terdaftar.'
                 ]
             ],
-            'email' => [
-                'label' => 'Email',
-                'rules' => 'required',
-                'errors' => [
-                    'required' => '{field} Tidak Boleh Kosong.',
-                    'is_unique' => '{field} Sudah Terdaftar.'
-                ]
-            ],
             'role' => [
                 'label' => 'Role',
                 'rules' => 'required',
@@ -158,14 +140,12 @@ class User extends BaseController
         if ($validate) {
             $nama_lengkap = esc($this->request->getPost('nama_lengkap'));
             $username = esc($this->request->getPost('username'));
-            $email = esc($this->request->getPost('email'));
             $role = esc($this->request->getPost('role'));
 
             $data = [
                 'id_user' => $id_user,
                 'nama_lengkap' => $nama_lengkap,
                 'username' => $username,
-                'email' => $email,
                 'role' => $role
             ];
             $this->userModel->save($data);
@@ -205,7 +185,7 @@ class User extends BaseController
             ],
             'password_baru' => [
                 'label' => 'Password Baru',
-                'rules' => 'required|min_length[8]',
+                'rules' => 'required|min_length[8]|regex_match[/^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s])[\w\d\W]{8,}$/]',
                 'errors' => [
                     'required' => '{field} Tidak Boleh Kosong.',
                     'min_length' => '{field} minimal 8 karakter.',
