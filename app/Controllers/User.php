@@ -114,7 +114,7 @@ class User extends BaseController
         $data = [
             'title' => 'Footwears | User',
             'judul' => 'Form Ubah User',
-            'usr' => $this->userModel->findUser($id_user)
+            'usr' => $this->userModel->getUser($id_user)
         ];
 
         return view('user/edit_user', $data);
@@ -239,6 +239,56 @@ class User extends BaseController
             }
         } else {
             return redirect()->back()->with('error', $this->validator->listErrors())->withInput();
+        }
+    }
+
+
+    //untuk reset password
+    public function resetSendLink()
+    {
+        $email = esc($this->request->getPost('email'));
+
+        //validasi email
+        $validationEmail = $this->validate([
+            'email' => [
+                'label' => 'Alamat Email',
+                'rules' => 'required|valid_email',
+                'errors' => [
+                    'required' => '{field} Tidak Boleh Kosong.',
+                    'valid_email' => 'Format {field} Salah.',
+                ]
+            ]
+        ]);
+
+        if (!$validationEmail) {
+            return redirect()->back()->withInput()->with('error', 'Invalid Email');
+        }
+
+        //cek email di db
+        $user = $this->userModel->getUserByEmail($email);
+        if (!$user) {
+            return redirect()->back()->withInput()->with('error', 'Email tidak ditemukan.');
+        }
+
+        //random int untuk kode OTP
+        $resetCode = mt_rand(100000, 999999);
+
+        //simpan email dan kode otp kedalam temporal storage melalui  session
+        $this->session->set('reset_email', $email);
+        $this->session->set('reset_token', $resetCode);
+
+        $emailMessage  = "Your Token Reset Password Is" . $resetCode;
+
+        // layanan email di ci4
+        $emails = \Config\Services::email();
+        $emails->setTo($email);
+        $emails->setSubject("Reset Password Code");
+        $emails->setMessage($emailMessage);
+
+        if ($emails->send()) {
+            return redirect()->to('user/reset-password')->with('pesan', 'Kode Reset Di Kirim ke Email');
+        } else {
+            return redirect()->back()->with('error', 'Gagal mengirim Kode Reset');
         }
     }
 }

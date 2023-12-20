@@ -10,14 +10,13 @@ class UserModel extends Model
     protected $primaryKey       = 'id_user';
     protected $allowedFields    = [
         'nama_lengkap',
-        'foto_profil',
         'username',
         'email',
         'password',
         'role'
     ];
 
-    public function findUser($id = false)
+    public function getUser($id = false)
     {
         if ($id == false) {
             return $this->findAll();
@@ -25,9 +24,9 @@ class UserModel extends Model
         return $this->where(['id_user' => $id])->first();
     }
 
-    public function getUser($username)
+    public function getUserByUsername($username)
     {
-        $query =  $this->where(['username' => $username,])->first();
+        $query =  $this->where(['username' => $username])->first();
         return $query;
     }
 
@@ -36,6 +35,11 @@ class UserModel extends Model
         return $this->where('id_user', $id)
             ->get()
             ->getRowArray();
+    }
+
+    public function getUserByEmail($email)
+    {
+        return $this->where(['email' => $email])->first();
     }
 
     public function updatePassword($id, $npass)

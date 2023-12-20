@@ -37,7 +37,7 @@ class Auth extends BaseController
         $username = $this->request->getPost('username');
         $password = $this->request->getPost('password');
 
-        $user = $this->userModel->getUser($username);
+        $user = $this->userModel->getUserByUsername($username);
 
         $validate = $this->validate([
             'username' => [
