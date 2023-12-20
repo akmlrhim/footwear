@@ -23,6 +23,7 @@ $routes->group('dashboard', static function ($routes) {
 });
 
 
+//barang
 $routes->group('barang', static function ($routes) {
 	$routes->get('/', 'Barang::index');
 	$routes->get('tambah', 'Barang::tambahBarang');
@@ -34,7 +35,7 @@ $routes->group('barang', static function ($routes) {
 	$routes->get('cetak-barang-habis', 'Barang::cetakBarangHabis');
 });
 
-
+//kategori
 $routes->group('kategori', static function ($routes) {
 	$routes->get('/', 'Kategori::index');
 	$routes->get('tambah', 'Kategori::tambahKategori');
@@ -44,7 +45,7 @@ $routes->group('kategori', static function ($routes) {
 	$routes->post('update/(:num)', 'Kategori::updateKategori/$1');
 });
 
-
+//barang masuk
 $routes->group('barang_masuk', static function ($routes) {
 	$routes->get('/', 'BarangMasuk::index');
 	$routes->get('tambah', 'BarangMasuk::tambahBrgMasuk');
@@ -54,7 +55,7 @@ $routes->group('barang_masuk', static function ($routes) {
 	$routes->get('filtered-data', 'BarangMasuk::filterData');
 });
 
-
+//barang keluar
 $routes->group('barang_keluar', static function ($routes) {
 	$routes->get('/', 'BarangKeluar::index');
 	$routes->get('tambah', 'BarangKeluar::tambahBrgKeluar');
@@ -64,6 +65,8 @@ $routes->group('barang_keluar', static function ($routes) {
 	$routes->get('filtered-data', 'BarangKeluar::filterData');
 });
 
+
+//supplier
 $routes->group('supplier', static function ($routes) {
 	$routes->get('/', 'Supplier::index');
 	$routes->get('tambah', 'Supplier::tambahSupplier');
@@ -73,7 +76,7 @@ $routes->group('supplier', static function ($routes) {
 	$routes->delete('(:num)', 'Supplier::hapusSupplier/$1');
 });
 
-
+//user
 $routes->group('user', static function ($routes) {
 	$routes->get('/', 'User::index');
 	$routes->get('tambah', 'User::tambahUser');

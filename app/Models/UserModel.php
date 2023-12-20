@@ -37,11 +37,6 @@ class UserModel extends Model
             ->getRowArray();
     }
 
-    public function getUserByEmail($email)
-    {
-        return $this->where(['email' => $email])->first();
-    }
-
     public function updatePassword($id, $npass)
     {
         return $this->where('id_user', $id)
