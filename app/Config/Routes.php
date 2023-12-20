@@ -81,10 +81,6 @@ $routes->group('user', static function ($routes) {
 	$routes->get('edit/(:num)', 'User::editUser/$1');
 	$routes->post('update/(:num)', 'User::updateUser/$1');
 	$routes->delete('(:num)', 'User::hapusUser/$1');
-});
-
-$routes->group('account', static function ($routes) {
-	$routes->get('/', 'Account::index');
-	$routes->post('ubah-password', 'Account::ubahPassword');
-	$routes->get('forgot-password', 'Account::forgotPassword');
+	$routes->get('ubah-password', 'User::ubahPassword');
+	$routes->post('ubah-password', 'User::updatePassword');
 });

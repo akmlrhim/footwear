@@ -106,7 +106,7 @@
 			<?php endif; ?>
 
 			<li class="nav-item">
-				<a href="<?= base_url('account'); ?>" class="nav-link">
+				<a href="<?= base_url('user/ubah-password'); ?>" class="nav-link">
 					<i class="nav-icon fas fa-lock"></i>
 					<p>Ubah Password</p>
 				</a>

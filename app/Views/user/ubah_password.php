@@ -15,7 +15,7 @@
 					<?= session()->getFlashdata('error'); ?>
 				</div>
 
-				<form action="<?= base_url('account/ubah-password'); ?>" method="POST">
+				<form action="<?= base_url('user/ubah-password'); ?>" method="POST">
 					<?= csrf_field(); ?>
 					<div class="form-group">
 						<label for="current_password">Password Lama</label>
@@ -32,7 +32,6 @@
 					</div>
 
 					<button type="submit" class="btn btn-primary ">Simpan</button>
-					<a href="<?= base_url('user'); ?>" class="btn  btn-secondary">Kembali</a>
 				</form>
 			</div>
 		</div>
