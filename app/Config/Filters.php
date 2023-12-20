@@ -54,7 +54,6 @@ class Filters extends BaseConfig
                     'supplier', 'supplier/*',
                     'user', 'user/*',
                     'kategori', 'kategori/*',
-                    'account', 'account/*',
                 ]
             ],
 
