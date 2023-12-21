@@ -21,12 +21,11 @@ class Barang extends BaseController
 
     public function index()
     {
-
         $data = [
             'title' => 'Footwears | Barang',
             'judul' => 'Data Barang',
             'barang' => $this->barangModel->getAllBarang(),
-            'kategori' => $this->kategoriModel->findAll(),
+            'kategori' => $this->kategoriModel->findAll()
         ];
         return view('Barang/index', $data);
     }
@@ -61,9 +60,10 @@ class Barang extends BaseController
         $validate = $this->validate([
             'nama_barang' => [
                 'label' => 'Nama Barang',
-                'rules' => 'required',
+                'rules' => 'required|is_unique[barang.nama_barang]',
                 'errors' => [
                     'required' => '{field} tidak boleh kosong.',
+                    'is_unique' => '{field} sudah terdaftar'
                 ]
             ],
             'id_kategori' => [
