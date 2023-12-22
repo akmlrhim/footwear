@@ -4,13 +4,20 @@
 
 <section class="content">
 	<div class="container-fluid">
+		<!-- validasi -->
+		<?php if (session()->getFlashdata('errors')) : ?>
+			<div class="alert alert-danger alert-dismissible fade show" role="alert">
+				<strong>Terjadi Kesalahan Inputan </strong>
+				<?= session()->getFlashdata('errors'); ?>
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		<?php endif; ?>
+		<!-- end validasi -->
+
 		<div class="card card-primary">
 			<div class="card-body">
-
-				<div class="text-danger">
-					<?= session()->getFlashdata('errors'); ?>
-				</div>
-
 				<form method="POST" action="<?= base_url('/barang/update' . '/' . $barang['id_barang']); ?>" enctype="multipart/form-data">
 					<?= csrf_field(); ?>
 

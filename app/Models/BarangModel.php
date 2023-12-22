@@ -44,4 +44,17 @@ class BarangModel extends Model
             ->findAll();
         return $query;
     }
+
+    public function cekDuplikat($nama_barang, $id_kategori, $id_barang = null)
+    {
+        $this->where('nama_barang', $nama_barang)
+            ->where('id_kategori', $id_kategori);
+
+        if ($id_barang !== NULL) {
+            $this->where('id_barang !=', $id_barang);
+        }
+
+        $result = $this->get()->getRow();
+        return ($result !== null) ? true : false;
+    }
 }

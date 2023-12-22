@@ -10,9 +10,11 @@ class Kategori extends BaseController
 {
 
     protected $kategoriModel;
-
+    protected $db;
     public function __construct()
     {
+        require_once APPPATH . 'ThirdParty/ssp.php';
+        $this->db = db_connect();
         $this->kategoriModel = new KategoriModel();
     }
 

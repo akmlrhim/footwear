@@ -47,23 +47,31 @@ class Barang extends BaseController
 
     public function tambahBarang()
     {
+        session();
         $data  = [
             'title' => 'Barang',
             'judul' => 'Form Tambah Barang',
-            'kategori' => $this->kategoriModel->findAll()
+            'kategori' => $this->kategoriModel->findAll(),
+            'validation' => \Config\Services::validation()
         ];
 
         return view('barang/tambah_barang', $data);
     }
     public function simpanBarang()
     {
+
+        $nama_barang = esc($this->request->getVar('nama_barang'));
+        $id_kategori = $this->request->getVar('id_kategori');
+
+        if ($this->barangModel->cekDuplikat($nama_barang, $id_kategori)) {
+            return redirect()->back()->with('dupl', 'Sepatu dengan kategori yang sama sudah terdaftar.');
+        }
         $validate = $this->validate([
             'nama_barang' => [
                 'label' => 'Nama Barang',
-                'rules' => 'required|is_unique[barang.nama_barang]',
+                'rules' => 'required',
                 'errors' => [
                     'required' => '{field} tidak boleh kosong.',
-                    'is_unique' => '{field} sudah terdaftar'
                 ]
             ],
             'id_kategori' => [
@@ -105,8 +113,6 @@ class Barang extends BaseController
             ],
         ]);
 
-
-
         if ($validate) {
             $file_gambar = $this->request->getFile('gambar');
 
@@ -120,10 +126,11 @@ class Barang extends BaseController
                     return redirect()->back()->with('errors', $this->validator->listErrors());
                 }
             }
+
             $this->barangModel->insert([
                 'nama_barang' => esc($this->request->getVar('nama_barang')),
-                'id_kategori' => esc($this->request->getVar('id_kategori')),
-                'gambar' => esc($nama_gambar),
+                'id_kategori' => $this->request->getVar('id_kategori'),
+                'gambar' => $nama_gambar,
                 'ukuran' => esc($this->request->getVar('ukuran')),
                 'warna' => esc($this->request->getVar('warna')),
                 'jumlah' => esc($this->request->getVar('jumlah')),
@@ -133,8 +140,9 @@ class Barang extends BaseController
             session()->setFlashdata('pesan', 'Data Berhasil Ditambahkan');
             return redirect()->to(base_url('barang'));
         } else {
-            session()->setFlashdata('errors', $this->validator->listErrors());
-            return redirect()->back()->withInput();
+            return redirect()->back()
+                ->withInput()
+                ->with('errors', $this->validator->listErrors());
         }
     }
 
@@ -223,8 +231,8 @@ class Barang extends BaseController
             $this->barangModel->save([
                 'id_barang' => $id,
                 'nama_barang' => esc($this->request->getVar('nama_barang')),
-                'id_kategori' => esc($this->request->getVar('id_kategori')),
-                'gambar' => esc($nama_gambar),
+                'id_kategori' => $this->request->getVar('id_kategori'),
+                'gambar' => $nama_gambar,
                 'ukuran' => esc($this->request->getVar('ukuran')),
                 'warna' => esc($this->request->getVar('warna')),
                 'jumlah' => esc($this->request->getVar('jumlah')),
@@ -253,7 +261,6 @@ class Barang extends BaseController
 
     public function cetakBarangHabis()
     {
-
         $options = new Options();
         $options->set('enabled', true);
         $options->set('isHtml5ParserEnabled', true);
