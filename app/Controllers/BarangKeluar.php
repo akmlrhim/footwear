@@ -82,7 +82,7 @@ class BarangKeluar extends BaseController
 
                 if ($jumlahKeluar > $barang['jumlah']) {
                     return redirect()->back()
-                        ->with('over', 'Jumlah keluar melebihi stok barang.')
+                        ->with('errors', 'Jumlah keluar melebihi stok barang.')
                         ->withInput();
                 }
 

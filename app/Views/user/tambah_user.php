@@ -5,9 +5,15 @@
 <section class="content">
 	<div class="container-fluid">
 
-		<div class="text-danger">
-			<?= session()->getFlashdata('error'); ?>
-		</div>
+		<?php if (session()->getFlashdata('errors')) : ?>
+			<div class="alert alert-danger alert-dismissible fade show" role="alert">
+				<strong>Terjadi Kesalahan Inputan </strong>
+				<?= session()->getFlashdata('errors'); ?>
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		<?php endif; ?>
 
 		<div class="row">
 			<div class="col">

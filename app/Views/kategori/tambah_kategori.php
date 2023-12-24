@@ -4,14 +4,22 @@
 
 <section class="content">
 	<div class="container-fluid">
-		<div class="card card-primary">
+
+		<!-- validasi -->
+		<?php if (session()->getFlashdata('errors')) : ?>
+			<div class="alert alert-danger alert-dismissible fade show" role="alert">
+				<strong>Terjadi Kesalahan Inputan </strong>
+				<?= session()->getFlashdata('errors'); ?>
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		<?php endif; ?>
+		<!-- end validasi -->
+
+		<div class="card">
 			<form action="<?= base_url('kategori/simpan'); ?>" method="POST" id="tambah-kategori">
 				<div class="card-body">
-
-					<div class="text-danger">
-						<?= session()->getFlashdata('errors'); ?>
-					</div>
-
 					<div class="form-group">
 						<label>Nama Kategori</label>
 						<input type="text" class="form-control" autocomplete="off" name="nama_kategori">
@@ -27,6 +35,4 @@
 	</div>
 </section>
 
-<?= $this->endSection(); ?>
-<?= $this->section('script'); ?>
 <?= $this->endSection(); ?>

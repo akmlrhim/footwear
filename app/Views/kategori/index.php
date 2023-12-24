@@ -16,7 +16,7 @@
 		<div class="card">
 			<div class="card-body">
 				<div class="table-responsive-sm">
-					<table id="example1" class="table table-bordered text-center table-sm" style="width:100%">
+					<table id="tables" class="table table-bordered text-center table-sm" style="width:100%">
 						<thead>
 							<tr>
 								<th scope="col">No</th>
@@ -25,20 +25,7 @@
 							</tr>
 						</thead>
 						<tbody>
-
-							<?php $no = 1 ?>
-							<?php foreach ($kategori as $ktg) : ?>
-								<tr>
-									<th><?= $no++; ?></th>
-									<td><?= esc($ktg['nama_kategori']); ?> </td>
-									<td>
-										<a class="btn btn-warning btn-sm" href="<?= base_url('kategori/edit/' . $ktg['id_kategori']); ?>"><i class="fas fa-edit"></i></a>
-										<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal<?= $ktg['id_kategori']; ?>">
-											<i class="fas fa-trash"></i>
-										</button>
-									</td>
-								</tr>
-							<?php endforeach ?>
+							<!-- data ditampilkan dengan server side -->
 						</tbody>
 					</table>
 				</div>
@@ -80,10 +67,24 @@
 <?= $this->section('script'); ?>
 <script>
 	$(function() {
-		$("#example1").DataTable({
+		$("#tables").DataTable({
 			responsive: true,
 			lengthChange: true,
-			autoWidth: false,
+			processing: true,
+			serverSide: true,
+			ajax: '<?= base_url('kategori/data-kategori'); ?>',
+			order: [],
+			columns: [{
+					data: 'no',
+					orderable: false
+				}, {
+					data: 'nama_kategori'
+				},
+				{
+					data: 'action'
+				}
+			]
+
 		});
 	});
 </script>

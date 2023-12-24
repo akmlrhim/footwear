@@ -5,16 +5,17 @@
 <section class="content">
 	<div class="container-fluid">
 
-
-		<div class="text-danger">
-			<?= session()->getFlashdata('errors'); ?>
-		</div>
-
-		<?php if (session()->getFlashdata('over')) : ?>
-			<div class="alert alert-danger">
-				<?= session()->getFlashdata('over'); ?>
+		<!-- validasi -->
+		<?php if (session()->getFlashdata('errors')) : ?>
+			<div class="alert alert-danger alert-dismissible fade show" role="alert">
+				<strong>Terjadi Kesalahan Inputan </strong>
+				<?= session()->getFlashdata('errors'); ?>
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
 			</div>
 		<?php endif; ?>
+		<!-- end validasi -->
 
 		<div class="card card-primary">
 			<div class="card-body">
