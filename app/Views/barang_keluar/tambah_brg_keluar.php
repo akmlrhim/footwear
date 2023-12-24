@@ -60,7 +60,14 @@
 
 					<div class="mt-3">
 						<button type="submit" class="btn btn-primary btn-sm">Simpan Data</button>
-						<a class="btn btn-secondary btn-sm" href="<?= base_url('barang_keluar'); ?>">Kembali</a>
+
+						<?php if (session()->get('role') == 'Owner') : ?>
+							<a class="btn btn-secondary btn-sm" href="<?= base_url('barang_keluar'); ?>">Kembali</a>
+						<?php endif ?>
+
+						<?php if (session()->get('role') == 'Karyawan') : ?>
+							<a class="btn btn-secondary btn-sm" href="<?= base_url('barang_keluar/krw'); ?>">Kembali</a>
+						<?php endif ?>
 					</div>
 				</form>
 			</div>

@@ -5,8 +5,6 @@
 <section class="content">
 	<div class="container-fluid">
 
-
-
 		<div class="card card-primary">
 			<div class="card-body">
 
@@ -64,7 +62,15 @@
 
 					<div class="mt-3">
 						<button type="submit" class="btn btn-primary btn-sm">Simpan Data</button>
-						<a class="btn btn-secondary btn-sm" href="<?= base_url('barang_masuk'); ?>">Kembali</a>
+
+						<?php if (session()->get('role') == 'Owner') : ?>
+							<a class="btn btn-secondary btn-sm" href="<?= base_url('barang_masuk'); ?>">Kembali</a>
+						<?php endif; ?>
+
+						<?php if (session()->get('role') == 'Karyawan') : ?>
+							<a class="btn btn-secondary btn-sm" href="<?= base_url('barang_masuk/krw'); ?>">Kembali</a>
+						<?php endif; ?>
+
 					</div>
 				</form>
 			</div>

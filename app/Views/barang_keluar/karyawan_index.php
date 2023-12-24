@@ -17,37 +17,20 @@
 			<div class="card-body">
 
 				<div class="table-responsive-sm">
-					<table class="table table-bordered text-center table-sm " id="example1">
+					<table class="table table-bordered text-center table-sm " id="tables">
 						<thead>
 							<tr>
 								<th scope="col">Tanggal</th>
-								<th scope="col">Nama Barang / Kategori</th>
+								<th scope="col">Nama Barang</th>
+								<th scope="col">Kategori</th>
 								<th scope="col">Jumlah Keluar</th>
 								<th scope="col">Harga Satuan</th>
 								<th scope="col">Total Harga</th>
-								<?php if (session()->get('role') == 'Owner') : ?>
-									<th scope="col">Disimpan Oleh</th>
-								<?php endif; ?>
 								<th scope="col">Aksi</th>
 							</tr>
 						</thead>
-						<?php foreach ($keluar as $klr) : ?>
-							<tr>
-								<td><?= date('d/m/Y ', strtotime($klr['tgl_keluar'])) ?></td>
-								<td><?= esc($klr['nama_barang']) . ' / ' . esc($klr['nama_kategori']); ?></td>
-								<td><?= esc($klr['jumlah_keluar']); ?></td>
-								<td>Rp. <?= number_format($klr['harga_satuan'], 0, ',', '.'); ?></td>
-								<td>Rp. <?= number_format($klr['total_harga'], 0, ',', '.'); ?></td>
-								<?php if (session()->get('role') == 'Owner') : ?>
-									<td><small class="badge badge-danger"> <?= esc($klr['disimpan_oleh']); ?></small></td>
-								<?php endif; ?>
-								<td>
-									<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal<?= $klr['id_brg_keluar']; ?>">
-										<i class="fas fa-trash"></i>
-									</button>
-								</td>
-							</tr>
-						<?php endforeach ?>
+						<tbody>
+							<!-- data tampil melalui serverside  -->
 						</tbody>
 					</table>
 				</div>
@@ -56,8 +39,8 @@
 	</div>
 </section>
 
-<!-- mmodal hapus  -->
 
+<!-- mmodal hapus  -->
 <?php foreach ($keluar as $klr) : ?>
 	<div class="modal fade" id="modal<?= $klr['id_brg_keluar']; ?>" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">
@@ -91,10 +74,36 @@
 <?= $this->section('script'); ?>
 <script>
 	$(function() {
-		$("#example1").DataTable({
+		$("#tables").DataTable({
 			responsive: true,
 			lengthChange: true,
-			autoWidth: false,
+			processing: true,
+			serverSide: true,
+			ajax: '<?= base_url('barang_keluar/data-barang-keluar-krw'); ?>',
+			columns: [{
+					data: 'tgl_keluar',
+					orderable: false
+				},
+				{
+					data: 'nama_barang'
+				},
+				{
+					data: 'nama_kategori'
+				},
+				{
+					data: 'jumlah_keluar'
+				},
+				{
+					data: 'harga_satuan'
+				},
+				{
+					data: 'total_harga'
+				},
+				{
+					data: 'action',
+					orderable: false
+				}
+			]
 		});
 	});
 </script>

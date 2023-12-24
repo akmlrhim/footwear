@@ -52,19 +52,41 @@
 					</p>
 				</a>
 				<ul class="nav nav-treeview" id="dropwdown">
-					<li class="nav-item">
-						<a href="<?= base_url('barang_masuk'); ?>" class="nav-link">
-							<i class="far fa-circle nav-icon"></i>
-							<p>Barang Masuk</p>
-						</a>
-					</li>
+					<?php if (session()->get('role') == 'Owner') : ?>
+						<li class="nav-item">
+							<a href="<?= base_url('barang_masuk'); ?>" class="nav-link">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Barang Masuk</p>
+							</a>
+						</li>
+					<?php endif; ?>
 
-					<li class="nav-item">
-						<a href="<?= base_url('barang_keluar'); ?>" class="nav-link">
-							<i class="far fa-circle nav-icon"></i>
-							<p>Barang Keluar</p>
-						</a>
-					</li>
+					<?php if (session()->get('role') == 'Karyawan') : ?>
+						<li class="nav-item">
+							<a href="<?= base_url('barang_masuk/krw'); ?>" class="nav-link">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Barang Masuk</p>
+							</a>
+						</li>
+					<?php endif; ?>
+
+					<?php if (session()->get('role') == 'Owner') : ?>
+						<li class="nav-item">
+							<a href="<?= base_url('barang_keluar'); ?>" class="nav-link">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Barang Keluar</p>
+							</a>
+						</li>
+					<?php endif; ?>
+
+					<?php if (session()->get('role') == 'Karyawan') : ?>
+						<li class="nav-item">
+							<a href="<?= base_url('barang_keluar/krw'); ?>" class="nav-link">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Barang Keluar</p>
+							</a>
+						</li>
+					<?php endif; ?>
 				</ul>
 			</li>
 

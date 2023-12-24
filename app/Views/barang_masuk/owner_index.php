@@ -25,9 +25,7 @@
 								<th scope="col">Harga Satuan</th>
 								<th scope="col">Total Harga</th>
 								<th scope="col">Nama Supplier</th>
-								<?php if (session()->get('role') == 'Owner') : ?>
-									<th scope="col">Disimpan Oleh</th>
-								<?php endif; ?>
+								<th scope="col">Disimpan Oleh</th>
 								<th scope="col">Aksi</th>
 							</tr>
 						</thead>
@@ -78,7 +76,7 @@
 			lengthChange: true,
 			processing: true,
 			serverSide: true,
-			ajax: '<?= base_url('barang_masuk/data-barang-masuk'); ?>',
+			ajax: '<?= base_url('barang_masuk/data-barang-masuk-own'); ?>',
 			columns: [{
 					data: 'tgl_masuk',
 					orderable: false

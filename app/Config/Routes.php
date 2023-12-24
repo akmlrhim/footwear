@@ -49,24 +49,28 @@ $routes->group('kategori', static function ($routes) {
 //barang masuk
 $routes->group('barang_masuk', static function ($routes) {
 	$routes->get('/', 'BarangMasuk::index');
+	$routes->get('krw', 'BarangMasuk::indexs');
 	$routes->get('tambah', 'BarangMasuk::tambahBrgMasuk');
 	$routes->post('simpan', 'BarangMasuk::simpanBrgMasuk');
 	$routes->delete('(:num)', 'BarangMasuk::hapusBrgMasuk/$1');
 	$routes->get('rep-barang-masuk', 'BarangMasuk::repMasuk');
 	$routes->get('filtered-data', 'BarangMasuk::filterData');
-	$routes->get('data-barang-masuk', 'BarangMasuk::dataBrgMasuk');
+	$routes->get('data-barang-masuk-own', 'BarangMasuk::dataBrgMasuk_own');
+	$routes->get('data-barang-masuk-krw', 'BarangMasuk::dataBrgMasuk_krw');
 });
 
 //barang keluar
 $routes->group('barang_keluar', static function ($routes) {
 	$routes->get('/', 'BarangKeluar::index');
+	$routes->get('krw', 'BarangKeluar::indexs');
 	$routes->get('tambah', 'BarangKeluar::tambahBrgKeluar');
 	$routes->post('simpan', 'BarangKeluar::simpanBrgKeluar');
 	$routes->delete('(:num)', 'barangKeluar::hapusBrgKeluar/$1');
 	$routes->get('rep-barang-keluar', 'BarangKeluar::repKeluar');
 	$routes->get('filtered-data', 'BarangKeluar::filterData');
+	$routes->get('data-barang-keluar-own', 'BarangKeluar::dataBrgKeluar_own');
+	$routes->get('data-barang-keluar-krw', 'BarangKeluar::dataBrgKeluar_krw');
 });
-
 
 //supplier
 $routes->group('supplier', static function ($routes) {

@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\BarangKeluarModel;
 use App\Models\BarangModel;
 use Dompdf\Dompdf;
+use Hermawan\DataTables\DataTable;
 
 class BarangKeluar extends BaseController
 {
@@ -18,6 +19,7 @@ class BarangKeluar extends BaseController
         $this->barangModel = new BarangModel();
     }
 
+    //index owner
     public function index()
     {
         $data = [
@@ -26,8 +28,87 @@ class BarangKeluar extends BaseController
             'keluar' => $this->keluar->getBrgKeluar()
         ];
 
-        return view('barang_keluar/index', $data);
+        return view('barang_keluar/owner_index', $data);
     }
+
+    //index karyawan
+    public function indexs()
+    {
+        $data = [
+            'title' => 'Footwear | Barang Keluar',
+            'judul' => 'Data Barang Keluar',
+            'keluar' => $this->keluar->getBrgKeluar()
+        ];
+
+        return view('barang_keluar/karyawan_index', $data);
+    }
+
+    //server side untuk tampil data role owner
+    public function dataBrgKeluar_own()
+    {
+        $db = db_connect();
+        $builder = $db->table('barang_keluar')
+            ->select('id_brg_keluar, tgl_keluar, nama_barang, nama_kategori, jumlah_keluar, harga_satuan, total_harga, disimpan_oleh')
+            ->join('barang', 'barang.id_barang = barang_keluar.id_barang')
+            ->join('kategori', 'kategori.id_kategori = barang.id_kategori');
+
+        return DataTable::of($builder)
+            ->add('tgl_keluar', function ($row) {
+                return date('d/m/Y', strtotime($row->tgl_keluar));
+            })
+
+            ->add('harga_satuan', function ($row) {
+                return 'Rp. ' . number_format($row->harga_satuan, 0, ',', '.');
+            })
+
+            ->add('total_harga', function ($row) {
+                return 'Rp. ' . number_format($row->total_harga, 0, ',', '.');
+            })
+
+            ->add('disimpan_oleh', function ($row) {
+                return '<small class="badge badge-danger">' . esc($row->disimpan_oleh) . '</small>';
+            })
+
+            ->add('action', function ($row) {
+                return '
+                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal' . $row->id_brg_keluar . '">
+                    <i class="fas fa-trash"></i> 
+                </button>';
+            })
+            ->toJson(true);
+    }
+
+    //server side untuk tampil data role karyawan
+    public function dataBrgKeluar_krw()
+    {
+        $db = db_connect();
+        $builder = $db->table('barang_keluar')
+            ->select('id_brg_keluar, tgl_keluar, nama_barang, nama_kategori, jumlah_keluar, harga_satuan, total_harga')
+            ->join('barang', 'barang.id_barang = barang_keluar.id_barang')
+            ->join('kategori', 'kategori.id_kategori = barang.id_kategori');
+
+        return DataTable::of($builder)
+            ->add('tgl_keluar', function ($row) {
+                return date('d/m/Y', strtotime($row->tgl_keluar));
+            })
+
+            ->add('harga_satuan', function ($row) {
+                return 'Rp. ' . number_format($row->harga_satuan, 0, ',', '.');
+            })
+
+            ->add('total_harga', function ($row) {
+                return 'Rp. ' . number_format($row->total_harga, 0, ',', '.');
+            })
+
+            ->add('action', function ($row) {
+                return '
+                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal' . $row->id_brg_keluar . '">
+                    <i class="fas fa-trash"></i> 
+                </button>';
+            })
+            ->toJson(true);
+    }
+
 
     public function tambahBrgKeluar()
     {
