@@ -16,7 +16,7 @@
 		<div class="card">
 			<div class="card-body">
 				<div class="table-responsive-sm">
-					<table class="table table-bordered text-center table-sm " id="example1">
+					<table class="table table-bordered text-center table-sm " id="tables">
 						<thead>
 							<tr>
 								<th scope="col">No</th>
@@ -27,21 +27,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<?php $no = 1 ?>
-							<?php foreach ($user as $usr) : ?>
-								<tr>
-									<th><?= $no++; ?></th>
-									<td><?= esc($usr['nama_lengkap']); ?></td>
-									<td><?= esc($usr['username']); ?></td>
-									<td><?= esc($usr['role']); ?></td>
-									<td>
-										<a href="<?= base_url('user/edit/' . $usr['id_user']); ?>" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
-										<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal<?= $usr['id_user'] ?>">
-											<i class="fas fa-trash"></i>
-										</button>
-									</td>
-								</tr>
-							<?php endforeach; ?>
+							<!-- data ditampilkan melalui sideserver -->
 						</tbody>
 					</table>
 				</div>
@@ -50,7 +36,7 @@
 	</div>
 </section>
 
-
+<!-- modal hapus -->
 <?php foreach ($user as $usr) : ?>
 	<div class="modal fade" id="modal<?= $usr['id_user']; ?>" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">
@@ -83,10 +69,31 @@
 <?= $this->section('script'); ?>
 <script>
 	$(function() {
-		$("#example1").DataTable({
+		$("#tables").DataTable({
 			responsive: true,
 			lengthChange: true,
-			autoWidth: false,
+			processing: true,
+			serverSide: true,
+			ajax: '<?= base_url('user/data-user'); ?>',
+			order: [],
+			columns: [{
+					data: 'no',
+					orderable: false
+				},
+				{
+					data: 'nama_lengkap'
+				},
+				{
+					data: 'username'
+				},
+				{
+					data: 'role'
+				},
+				{
+					data: 'action',
+					orderable: false
+				}
+			]
 		});
 	});
 </script>

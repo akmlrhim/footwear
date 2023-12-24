@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\SupplierModel;
+use Hermawan\DataTables\DataTable;
 
 class Supplier extends BaseController
 {
@@ -23,6 +24,23 @@ class Supplier extends BaseController
         ];
 
         return view('supplier/index', $data);
+    }
+
+    public function dataSupplier()
+    {
+        $db = db_connect();
+        $builder = $db->table('supplier')->select('id_supplier, nama, kontak');
+
+        return DataTable::of($builder)
+            ->add('action', function ($row) {
+                return '
+                <a class="btn btn-warning btn-sm" href="' . base_url('supplier/edit/' . $row->id_supplier) . '"><i class="fas fa-edit"></i></a>
+                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal' . $row->id_supplier . '">
+                    <i class="fas fa-trash"></i>
+                </button>';
+            })
+            ->addNumbering('no')
+            ->toJson(true);
     }
 
     public function tambahSupplier()

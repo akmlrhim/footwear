@@ -3,7 +3,7 @@
 <?= $this->section('content'); ?>
 <section class="content">
 	<div class="container-fluid">
-		<a href="<?= base_url('/kategori/tambah'); ?>" class="btn btn-sm btn-primary mb-4"><i class="fas fa-plus-circle mr-2"></i>
+		<a href="<?= base_url('/kategori/tambah'); ?>" class="btn btn-primary mb-4"><i class="fas fa-plus-circle mr-2"></i>
 			Tambah Data
 		</a>
 
@@ -81,10 +81,10 @@
 					data: 'nama_kategori'
 				},
 				{
-					data: 'action'
+					data: 'action',
+					orderable: false
 				}
 			]
-
 		});
 	});
 </script>

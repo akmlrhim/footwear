@@ -5,10 +5,10 @@
 	<div class="container-fluid">
 
 		<?php if (session()->get('role') == "Owner") : ?>
-			<a href="<?= base_url('barang/tambah'); ?>" class="btn btn-primary btn-sm mb-3">
+			<a href="<?= base_url('barang/tambah'); ?>" class="btn btn-primary mb-3">
 				<i class="fas fa-plus-circle mr-2"></i> Tambah Data
 			</a>
-			<a href="<?= base_url('barang/cetak-barang-habis'); ?>" class="btn btn-danger btn-sm mb-3"><i class="fas fa-print mr-2"></i>Cetak Data Barang Habis</a>
+			<a href="<?= base_url('barang/cetak-barang-habis'); ?>" class="btn btn-danger mb-3"><i class="fas fa-print mr-2"></i>Cetak Data Barang Habis</a>
 		<?php endif; ?>
 
 
@@ -21,7 +21,7 @@
 			<div class="card-body">
 
 				<div class="table-responsive-sm">
-					<table id="example1" class="table table-bordered text-center table-sm" style="width:100%">
+					<table id="tables" class="table table-bordered text-center table-sm" style="width:100%">
 						<thead>
 							<tr>
 								<th>Nama Barang</th>
@@ -34,32 +34,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<?php foreach ($barang as $brg) : ?>
-								<tr>
-									<td><?= esc($brg['nama_barang']); ?></td>
-									<td><?= esc($brg['nama_kategori']); ?></td>
-									<td><?= esc($brg['jumlah']); ?></td>
-									<td><?= esc($brg['ukuran']); ?></td>
-									<td><?= esc($brg['warna']); ?></td>
-									<td>
-										<?php if ($brg['jumlah'] == 0) : ?>
-											<small class="badge badge-danger"> Habis</small>
-										<?php elseif ($brg['jumlah'] >= 0) : ?>
-											<small class="badge badge-success"> Masih Ada</small>
-										<?php endif; ?>
-									</td>
-									<td>
-										<a href="<?= base_url('barang/detail/' . $brg['id_barang']) ?>" class="btn btn-sm btn-success"><i class="fas fa-eye"></i></a>
-										<?php if (session()->get('role') == "Owner") : ?>
-											<a href="<?= base_url('barang/edit/' . $brg['id_barang']); ?>" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
-
-											<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal<?= $brg['id_barang'] ?>">
-												<i class="fas fa-trash"></i>
-											</button>
-										<?php endif; ?>
-									</td>
-								</tr>
-							<?php endforeach; ?>
+							<!-- data ditampilkan dengan sideserver -->
 						</tbody>
 					</table>
 				</div>
@@ -102,10 +77,41 @@
 <?= $this->section('script'); ?>
 <script>
 	$(function() {
-		$("#example1").DataTable({
+		$("#tables").DataTable({
 			responsive: true,
 			lengthChange: true,
-			autoWidth: false,
+			processing: true,
+			serverSide: true,
+			ajax: '<?= base_url('barang/data-barang'); ?>',
+			columns: [{
+					data: 'nama_barang',
+					name: 'barang.nama_barang'
+				},
+				{
+					data: 'nama_kategori',
+					name: 'kategori.nama_kategori'
+				},
+				{
+					data: 'jumlah',
+					name: 'barang.jumlah'
+				},
+				{
+					data: 'ukuran',
+					name: 'barang.ukuran'
+				},
+				{
+					data: 'warna',
+					name: 'barang.warna'
+				},
+				{
+					data: 'status',
+					orderable: false
+				},
+				{
+					data: 'action',
+					orderable: false
+				}
+			]
 		});
 	});
 </script>

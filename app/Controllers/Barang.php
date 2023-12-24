@@ -7,6 +7,7 @@ use App\Controllers\BaseController;
 use App\Models\KategoriModel;
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use Hermawan\DataTables\DataTable;
 
 class Barang extends BaseController
 {
@@ -30,6 +31,32 @@ class Barang extends BaseController
         return view('Barang/index', $data);
     }
 
+    public function dataBarang()
+    {
+        $db = db_connect();
+        $builder = $db->table('barang')
+            ->select('id_barang, nama_barang, nama_kategori, ukuran, warna, jumlah')
+            ->join('kategori', 'kategori.id_kategori = barang.id_kategori');
+
+        return DataTable::of($builder)
+            ->add('status', function ($row) {
+                if ($row->jumlah == 0) {
+                    return '<small class="badge badge-danger"> Habis</small>';
+                } else {
+                    return '<small class="badge badge-success"> Masih Ada</small>';
+                }
+            })
+            ->add('action', function ($row) {
+                return '
+                <a class="btn btn-success btn-sm" href="' . base_url('barang/detail/' . $row->id_barang) . '"><i class="fas fa-eye"></i></a>
+                <a class="btn btn-warning btn-sm" href="' . base_url('barang/edit/' . $row->id_barang) . '"><i class="fas fa-edit"></i></a>
+                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal' . $row->id_barang . '">
+                    <i class="fas fa-trash"></i> 
+                </button>';
+            })
+            ->toJson(true);
+    }
+
     public function detailBarang($id)
     {
         $data = [
@@ -47,12 +74,10 @@ class Barang extends BaseController
 
     public function tambahBarang()
     {
-        session();
         $data  = [
             'title' => 'Barang',
             'judul' => 'Form Tambah Barang',
             'kategori' => $this->kategoriModel->findAll(),
-            'validation' => \Config\Services::validation()
         ];
 
         return view('barang/tambah_barang', $data);

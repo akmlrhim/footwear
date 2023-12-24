@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\UserModel;
+use Hermawan\DataTables\DataTable;
 
 class User extends BaseController
 {
@@ -17,16 +18,30 @@ class User extends BaseController
 
     public function index()
     {
-
-        $user = $this->userModel->findAll();
-
         $data = [
             'title' => 'Footwears | User',
             'judul' => 'Data User',
-            'user' => $user
+            'user' => $this->userModel->findAll()
         ];
 
         return view('user/index', $data);
+    }
+
+    public function dataUser()
+    {
+        $db = db_connect();
+        $builder = $db->table('users')->select('id_user, nama_lengkap, username, role');
+
+        return DataTable::of($builder)
+            ->add('action', function ($row) {
+                return '
+            <a class="btn btn-warning btn-sm" href="' . base_url('user/edit/' . $row->id_user) . '"><i class="fas fa-edit"></i></a>
+            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal' . $row->id_user . '">
+                <i class="fas fa-trash"></i> 
+            </button>';
+            })
+            ->addNumbering('no')
+            ->toJson(true);
     }
 
     public function tambahUser()

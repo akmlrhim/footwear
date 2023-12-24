@@ -7,6 +7,7 @@ use App\Models\BarangMasukModel;
 use App\Models\BarangModel;
 use App\Models\SupplierModel;
 use Dompdf\Dompdf;
+use Hermawan\DataTables\DataTable;
 
 class BarangMasuk extends BaseController
 {
@@ -30,6 +31,45 @@ class BarangMasuk extends BaseController
         ];
 
         return view('barang_masuk/index', $data);
+    }
+
+    public function dataBrgMasuk()
+    {
+        $db = db_connect();
+        $builder = $db->table('barang_masuk')
+            ->select('id_brg_masuk, tgl_masuk, nama_barang, nama_kategori, jumlah_masuk, harga_satuan, total_harga, nama, disimpan_oleh')
+            ->join('barang', 'barang.id_barang = barang_masuk.id_barang')
+            ->join('kategori', 'kategori.id_kategori = barang.id_kategori')
+            ->join('supplier', 'supplier.id_supplier = barang_masuk.id_supplier');
+
+        return DataTable::of($builder)
+            ->add('tgl_masuk', function ($row) {
+                return date('d/m/Y', strtotime($row->tgl_masuk));
+            })
+
+            ->add('harga_satuan', function ($row) {
+                return 'Rp. ' . number_format($row->harga_satuan, 0, ',', '.');
+            })
+
+            ->add('total_harga', function ($row) {
+                return 'Rp. ' . number_format($row->total_harga, 0, ',', '.');
+            })
+
+            ->add('disimpan_oleh', function ($row) {
+                if (session()->get('role') == 'Owner') {
+                    return '<small class="badge badge-danger">' . esc($row->disimpan_oleh) . '</small>';
+                } else {
+                    return '';
+                }
+            })
+
+            ->add('action', function ($row) {
+                return '
+                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal' . $row->id_brg_masuk . '">
+                    <i class="fas fa-trash"></i> 
+                </button>';
+            })
+            ->toJson(true);
     }
 
     public function tambahBrgMasuk()

@@ -19,7 +19,6 @@ $routes->group('auth', static function ($routes) {
 // dashboard`
 $routes->group('dashboard', static function ($routes) {
 	$routes->get('/', 'Dashboard::index');
-	$routes->get('data-barang', 'Dashboard::dataBarang');
 });
 
 
@@ -33,6 +32,7 @@ $routes->group('barang', static function ($routes) {
 	$routes->post('update/(:num)', 'Barang::updateBarang/$1');
 	$routes->get('detail/(:num)', 'Barang::detailBarang/$1');
 	$routes->get('cetak-barang-habis', 'Barang::cetakBarangHabis');
+	$routes->get('data-barang', 'Barang::dataBarang');
 });
 
 //kategori
@@ -54,6 +54,7 @@ $routes->group('barang_masuk', static function ($routes) {
 	$routes->delete('(:num)', 'BarangMasuk::hapusBrgMasuk/$1');
 	$routes->get('rep-barang-masuk', 'BarangMasuk::repMasuk');
 	$routes->get('filtered-data', 'BarangMasuk::filterData');
+	$routes->get('data-barang-masuk', 'BarangMasuk::dataBrgMasuk');
 });
 
 //barang keluar
@@ -75,6 +76,7 @@ $routes->group('supplier', static function ($routes) {
 	$routes->get('edit/(:num)', 'Supplier::editSupplier/$1');
 	$routes->post('update/(:num)', 'Supplier::updateSupplier/$1');
 	$routes->delete('(:num)', 'Supplier::hapusSupplier/$1');
+	$routes->get('data-supplier', 'Supplier::dataSupplier');
 });
 
 //user
@@ -87,4 +89,5 @@ $routes->group('user', static function ($routes) {
 	$routes->delete('(:num)', 'User::hapusUser/$1');
 	$routes->get('ubah-password', 'User::ubahPassword');
 	$routes->post('ubah-password', 'User::updatePassword');
+	$routes->get('data-user', 'User::dataUser');
 });

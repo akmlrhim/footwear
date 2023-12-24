@@ -4,7 +4,7 @@
 
 <section class="content">
 	<div class="container-fluid">
-		<a href="<?= base_url('/supplier/tambah'); ?>" class="btn btn-sm btn-primary mb-3"><i class="fas fa-plus-circle mr-2"></i>Tambah Data</a>
+		<a href="<?= base_url('/supplier/tambah'); ?>" class="btn btn-primary mb-3"><i class="fas fa-plus-circle mr-2"></i>Tambah Data</a>
 
 		<?php if (session()->getFlashdata('pesan')) : ?>
 			<div class="alert alert-success" role="alert">
@@ -16,7 +16,7 @@
 			<div class="card-body">
 
 				<div class="table-responsive-sm">
-					<table class="table table-striped table-bordered text-center table-sm " id="example1">
+					<table class="table table-bordered text-center table-sm " id="tables">
 						<thead>
 							<tr>
 								<th scope="col">No</th>
@@ -26,22 +26,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<?php $no = 1; ?>
-							<?php foreach ($supplier as $supp) : ?>
-								<tr>
-									<th><?= $no++; ?></th>
-									<td><?= esc($supp['nama']); ?></td>
-									<td><?= esc($supp['kontak']); ?></td>
-									<td>
-										<a href="<?= base_url('supplier/edit/' . $supp['id_supplier']); ?>" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
-
-										<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal<?= $supp['id_supplier']; ?>">
-											<i class="fas fa-trash"></i>
-										</button>
-
-									</td>
-								</tr>
-							<?php endforeach; ?>
+							<!-- data ditampilkan oleh sideserver -->
 						</tbody>
 					</table>
 				</div>
@@ -82,10 +67,28 @@
 <?= $this->section('script'); ?>
 <script>
 	$(function() {
-		$("#example1").DataTable({
+		$("#tables").DataTable({
 			responsive: true,
 			lengthChange: true,
-			autoWidth: false,
+			processing: true,
+			serverSide: true,
+			ajax: '<?= base_url('supplier/data-supplier'); ?>',
+			order: [],
+			columns: [{
+					data: 'no',
+					orderable: false
+				},
+				{
+					data: 'nama'
+				},
+				{
+					data: 'kontak'
+				},
+				{
+					data: 'action',
+					orderable: false
+				}
+			]
 		});
 	});
 </script>

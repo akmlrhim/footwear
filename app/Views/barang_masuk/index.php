@@ -4,7 +4,7 @@
 
 <section class="content">
 	<div class="container-fluid">
-		<a href="<?= base_url('/barang_masuk/tambah'); ?>" class="btn btn-primary mb-3 btn-sm"><i class="fas fa-plus-circle mr-2"></i>Tambah Data</a>
+		<a href="<?= base_url('/barang_masuk/tambah'); ?>" class="btn btn-primary mb-3"><i class="fas fa-plus-circle mr-2"></i>Tambah Data</a>
 
 		<?php if (session()->getFlashdata('pesan')) : ?>
 			<div class="alert alert-success" role="alert">
@@ -15,7 +15,7 @@
 		<div class="card">
 			<div class="card-body">
 				<div class="table-responsive-sm">
-					<table class="table  table-bordered text-center table-sm " id="example1">
+					<table class="table table-bordered text-center table-sm " id="tables">
 						<thead>
 							<tr>
 								<th scope="col">Tanggal</th>
@@ -31,25 +31,8 @@
 								<th scope="col">Aksi</th>
 							</tr>
 						</thead>
-						<?php foreach ($masuk as $msk) : ?>
-							<tr>
-								<td><?= date('d/m/Y ', strtotime($msk['tgl_masuk'])) ?></td>
-								<td><?= esc($msk['nama_barang']) ?></td>
-								<td><?= esc($msk['nama_kategori']) ?></td>
-								<td><?= esc($msk['jumlah_masuk']); ?></td>
-								<td>Rp. <?= number_format($msk['harga_satuan'], 0, ',', '.'); ?></td>
-								<td>Rp. <?= number_format($msk['total_harga'], 0, ',', '.'); ?></td>
-								<td><?= esc($msk['nama']); ?></td>
-								<?php if (session()->get('role') == 'Owner') : ?>
-									<td><small class="badge badge-danger"> <?= esc($msk['disimpan_oleh']); ?></small></td>
-								<?php endif ?>
-								<td>
-									<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal<?= $msk['id_brg_masuk']; ?>">
-										<i class="fas fa-trash"></i>
-									</button>
-								</td>
-							</tr>
-						<?php endforeach ?>
+						<tbody>
+							<!-- data ditampilkan dengan server side  -->
 						</tbody>
 					</table>
 				</div>
@@ -90,10 +73,43 @@
 <?= $this->section('script'); ?>
 <script>
 	$(function() {
-		$("#example1").DataTable({
+		$("#tables").DataTable({
 			responsive: true,
 			lengthChange: true,
-			autoWidth: false,
+			processing: true,
+			serverSide: true,
+			ajax: '<?= base_url('barang_masuk/data-barang-masuk'); ?>',
+			columns: [{
+					data: 'tgl_masuk',
+					orderable: false
+				},
+				{
+					data: 'nama_barang'
+				},
+				{
+					data: 'nama_kategori'
+				},
+				{
+					data: 'jumlah_masuk'
+				},
+				{
+					data: 'harga_satuan'
+				},
+				{
+					data: 'total_harga'
+				},
+				{
+					data: 'nama'
+				},
+				{
+					data: 'disimpan_oleh',
+					orderable: false
+				},
+				{
+					data: 'action',
+					orderable: false
+				}
+			]
 		});
 	});
 </script>
