@@ -272,18 +272,6 @@ class Barang extends BaseController
         }
     }
 
-    public function barangHabis()
-    {
-        $data = [
-            'title' => 'Barang Habis',
-            'judul' => 'Laporan Barang Habis',
-            'habis' => $this->barangModel->getBarangHabis()
-        ];
-
-        return view('Barang/barang_habis', $data);
-    }
-
-
     public function cetakBarangHabis()
     {
         $options = new Options();

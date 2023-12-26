@@ -35,7 +35,7 @@ class CountModel extends Model
         return $this->db->table('supplier')->countAll();
     }
 
-    public  function  countUser()
+    public  function countUser()
     {
         return $this->db->table('users')->countAll();
     }

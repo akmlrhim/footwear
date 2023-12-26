@@ -25,8 +25,7 @@ class UserModel extends Model
 
     public function getUserByUsername($username)
     {
-        $query =  $this->where(['username' => $username])->first();
-        return $query;
+        return $this->where(['username' => $username])->first();
     }
 
     public function getUserByid($id)

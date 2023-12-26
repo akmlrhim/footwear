@@ -77,18 +77,18 @@ class Kategori extends BaseController
         }
     }
 
-    public function editKategori($id_kategori)
+    public function editKategori($id)
     {
         $data  = [
             'title' => 'Kategori',
             'judul' => 'Form Ubah Kategori',
-            'kategori' => $this->kategoriModel->getKategori($id_kategori),
+            'kategori' => $this->kategoriModel->getKategori($id),
         ];
 
         return view('kategori/edit_kategori', $data);
     }
 
-    public function updateKategori($id_kategori)
+    public function updateKategori($id)
     {
         $validate = $this->validate([
             'nama_kategori' => [
@@ -102,7 +102,7 @@ class Kategori extends BaseController
 
         if ($validate) {
             $this->kategoriModel->save([
-                'id_kategori' => $id_kategori,
+                'id_kategori' => $id,
                 'nama_kategori' => esc($this->request->getVar('nama_kategori'))
             ]);
             session()->setFlashdata('pesan', 'Data Berhasil Diubah');
@@ -113,9 +113,9 @@ class Kategori extends BaseController
         }
     }
 
-    public function hapusKategori($id_kategori)
+    public function hapusKategori($id)
     {
-        $this->kategoriModel->delete($id_kategori);
+        $this->kategoriModel->delete($id);
         session()->setFlashdata('pesan', 'Data Berhasil Dihapus');
         return redirect()->to('kategori');
     }
