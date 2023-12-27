@@ -204,6 +204,7 @@ class User extends BaseController
                 'errors' => [
                     'required' => '{field} Tidak Boleh Kosong.',
                     'min_length' => '{field} minimal 8 karakter.',
+                    'regex_match' => '{field} mengandung '
                 ]
             ],
             're_password' => [

@@ -40,7 +40,7 @@
 					<div class="form-row mt-2">
 						<div class="col">
 							<label class="col-form-label">Jumlah Masuk </label>
-							<input type="number" min="0" name="jumlah_masuk" id="jumlah_masuk" class="form-control" autocomplete="off" value="<?= old('jumlah_masuk'); ?>">
+							<input type="number" min="0" name="jumlah_masuk" id="jumlah_masuk" class="form-control" autocomplete="off" value="<?= old('jumlah_masuk'); ?>" onchange="calculateTotal()">
 						</div>
 						<div class="col">
 							<label class="col-form-label">Harga Satuan </label>

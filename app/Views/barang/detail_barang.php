@@ -5,7 +5,7 @@
 	<div class="container-fluid">
 		<div class="card card-primary">
 			<div class="card-body">
-				<a href="<?= base_url('/barang'); ?>" class="btn btn-dark mb-4">Kembali</a>
+				<a href="<?= base_url('barang'); ?>" class="btn btn-dark mb-4">Kembali</a>
 				<div class="card card-solid">
 					<div class="card-body">
 						<div class="row">
