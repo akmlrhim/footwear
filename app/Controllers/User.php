@@ -107,25 +107,25 @@ class User extends BaseController
 
             $this->userModel->insert($data);
             session()->setFlashdata('pesan', 'Data Berhasil Ditambahkan');
-            return redirect()->to(base_url('/user'));
+            return redirect()->to(base_url('user'));
         } else {
             session()->setFlashdata('error', $this->validator->listErrors());
             return redirect()->back()->withInput();
         }
     }
 
-    public function editUser($id_user)
+    public function editUser($id)
     {
         $data = [
             'title' => 'Footwears | User',
             'judul' => 'Form Ubah User',
-            'usr' => $this->userModel->getUser($id_user)
+            'usr' => $this->userModel->getUser($id)
         ];
 
         return view('user/edit_user', $data);
     }
 
-    public function updateUser($id_user)
+    public function updateUser($id)
     {
         $validate = $this->validate([
             'nama_lengkap' => [
@@ -158,7 +158,7 @@ class User extends BaseController
             $role = esc($this->request->getPost('role'));
 
             $data = [
-                'id_user' => $id_user,
+                'id_user' => $id,
                 'nama_lengkap' => $nama_lengkap,
                 'username' => $username,
                 'role' => $role
@@ -170,9 +170,9 @@ class User extends BaseController
         }
     }
 
-    public function hapusUser($id_user)
+    public function hapusUser($id)
     {
-        $this->userModel->delete($id_user);
+        $this->userModel->delete($id);
         return redirect()->back()->with('pesan', 'Data Berhasil Dihapus');
     }
 

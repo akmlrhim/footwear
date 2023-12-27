@@ -17,10 +17,8 @@
 						<input type="text" class="form-control" autocomplete="off" name="nama_kategori" value="<?= $kategori['nama_kategori']; ?>">
 					</div>
 
-					<div class="card-footer">
-						<button type="submit" class="btn btn-primary">Simpan Data</button>
-						<a href="<?= base_url('kategori'); ?>" class="btn btn-secondary">Kembali</a>
-					</div>
+					<button type="submit" class="btn btn-primary">Simpan Data</button>
+					<a href="<?= base_url('kategori'); ?>" class="btn btn-secondary">Kembali</a>
 				</form>
 
 			</div>

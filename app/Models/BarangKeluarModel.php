@@ -22,12 +22,10 @@ class BarangKeluarModel extends Model
 
     public function getBrgKeluar()
     {
-        $query = $this
+        return $this
             ->join('barang', 'barang.id_barang = barang_keluar.id_barang')
             ->join('kategori', 'kategori.id_kategori = barang.id_kategori')
             ->findAll();
-
-        return $query;
     }
 
     public function filter($tglawal, $tglakhir)

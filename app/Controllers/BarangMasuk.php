@@ -120,7 +120,7 @@ class BarangMasuk extends BaseController
         $data = [
             'title' => 'Footwears | Barang Masuk',
             'judul' => 'Form Tambah Barang Masuk',
-            'barang' => $this->barangModel->getAllBarang(),
+            'barang' => $this->barangModel->getBarang(),
             'supplier' => $this->supplierModel->findAll(),
         ];
 

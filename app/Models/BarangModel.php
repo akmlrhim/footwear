@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
+use PDO;
 
 class BarangModel extends Model
 {
@@ -18,33 +19,31 @@ class BarangModel extends Model
         'deskripsi'
     ];
 
-    public function getBarang($id_barang = false)
+    public function getBarang($id = false)
     {
-        if ($id_barang == false) {
+        if ($id == false) {
             return $this->join('kategori', 'kategori.id_kategori = barang.id_kategori')
-                ->where(['jumlah >' => 0])
                 ->findAll();
         }
 
-        return $this->where(['id_barang' => $id_barang])
+        return $this->where(['id_barang' => $id])
             ->join('kategori', 'kategori.id_kategori = barang.id_kategori')
             ->first();
     }
 
-    public function getAllBarang()
+    public function getBarangAda()
     {
         return $this->join('kategori', 'kategori.id_kategori = barang.id_kategori')
+            ->where(['jumlah >' => 0])
             ->findAll();
     }
 
     public function getBarangHabis()
     {
-        $query = $this->where(['jumlah =' =>  0])
-            ->join('kategori', 'kategori.id_kategori = barang.id_kategori')
+        return $this->join('kategori', 'kategori.id_kategori = barang.id_kategori')
+            ->where(['jumlah =' => 0])
             ->findAll();
-        return $query;
     }
-
     public function cekDuplikat($nama_barang, $id_kategori, $id_barang = null)
     {
         $this->where('nama_barang', $nama_barang)

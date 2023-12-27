@@ -14,12 +14,11 @@ class SupplierModel extends Model
         'kontak'
     ];
 
-    public function getSupplier($id_supplier = false)
+    public function getSupplier($id = false)
     {
-        if ($id_supplier == false) {
-            $query = $this->findAll();
+        if ($id == false) {
+            return $this->findAll();
         }
-        $query = $this->where(['id_supplier' => $id_supplier])->first();
-        return $query;
+        return $this->where(['id_supplier' => $id])->first();
     }
 }

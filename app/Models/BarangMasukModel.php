@@ -20,13 +20,11 @@ class BarangMasukModel extends Model
 
     public function getBarangMasuk()
     {
-        $query = $this
+        return $this
             ->join('barang', 'barang.id_barang = barang_masuk.id_barang')
             ->join('kategori', 'kategori.id_kategori = barang.id_kategori')
             ->join('supplier', 'supplier.id_supplier = barang_masuk.id_supplier')
             ->findAll();
-
-        return $query;
     }
 
     public function filter($tglawal, $tglakhir)

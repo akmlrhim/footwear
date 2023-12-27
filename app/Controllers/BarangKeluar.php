@@ -115,7 +115,7 @@ class BarangKeluar extends BaseController
         $data = [
             'title' => 'Footwear | Barang Keluar',
             'judul' => 'Data Barang Keluar',
-            'barang' => $this->barangModel->getBarang()
+            'barang' => $this->barangModel->getBarangAda()
         ];
 
         return view('barang_keluar/tambah_brg_keluar', $data);

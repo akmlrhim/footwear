@@ -25,7 +25,7 @@ class Barang extends BaseController
         $data = [
             'title' => 'Footwears | Barang',
             'judul' => 'Data Barang',
-            'barang' => $this->barangModel->getAllBarang(),
+            'barang' => $this->barangModel->getBarang(),
             'kategori' => $this->kategoriModel->findAll()
         ];
         return view('Barang/index', $data);
