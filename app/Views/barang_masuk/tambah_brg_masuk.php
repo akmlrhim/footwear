@@ -5,13 +5,18 @@
 <section class="content">
 	<div class="container-fluid">
 
+		<?php if (session()->getFlashdata('errors')) : ?>
+			<div class="alert alert-danger alert-dismissible fade show" role="alert">
+				<strong>Terjadi Kesalahan Inputan </strong>
+				<?= session()->getFlashdata('errors'); ?>
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		<?php endif; ?>
+
 		<div class="card card-primary">
 			<div class="card-body">
-
-				<div class="text-danger">
-					<?= session()->getFlashdata('errors'); ?>
-				</div>
-
 				<form action="<?= base_url('barang_masuk/simpan'); ?>" method="POST">
 					<?= csrf_field(); ?>
 					<div class="form-row">

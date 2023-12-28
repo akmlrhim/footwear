@@ -3,18 +3,25 @@
 <?= $this->section('content'); ?>
 <section class="content">
 	<div class="container-fluid">
+
 		<?php if (session()->getFlashdata('pesan')) : ?>
 			<div class="alert alert-success" role="alert">
 				<?= session()->getFlashdata('pesan'); ?>
 			</div>
 		<?php endif ?>
+
+		<?php if (session()->getFlashdata('error')) : ?>
+			<div class="alert alert-danger alert-dismissible fade show" role="alert">
+				<strong>Terjadi Kesalahan Inputan </strong>
+				<?= session()->getFlashdata('error'); ?>
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		<?php endif; ?>
+
 		<div class="card">
 			<div class="card-body">
-
-				<div class="text-danger">
-					<?= session()->getFlashdata('error'); ?>
-				</div>
-
 				<form action="<?= base_url('user/ubah-password'); ?>" method="POST">
 					<?= csrf_field(); ?>
 					<div class="form-group">

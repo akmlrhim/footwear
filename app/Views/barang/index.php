@@ -8,7 +8,7 @@
 			<a href="<?= base_url('barang/tambah'); ?>" class="btn btn-primary mb-3">
 				<i class="fas fa-plus-circle mr-2"></i> Tambah Data
 			</a>
-			<a href="<?= base_url('barang/cetak-barang-habis'); ?>" class="btn btn-danger mb-3"><i class="fas fa-print mr-2"></i>Cetak Data Barang Habis</a>
+			<a href="<?= base_url('barang/cetak-barang-habis'); ?>" class="btn btn-danger mb-3"><i class="fas fa-print mr-2"></i>Cetak Barang Habis</a>
 		<?php endif; ?>
 
 

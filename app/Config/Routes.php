@@ -21,7 +21,6 @@ $routes->group('dashboard', static function ($routes) {
 	$routes->get('/', 'Dashboard::index');
 });
 
-
 //barang
 $routes->group('barang', static function ($routes) {
 	$routes->get('/', 'Barang::index');
