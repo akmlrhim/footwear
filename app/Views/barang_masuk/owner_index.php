@@ -4,7 +4,7 @@
 
 <section class="content">
 	<div class="container-fluid">
-		<a href="<?= base_url('/barang_masuk/tambah'); ?>" class="btn btn-primary mb-3"><i class="fas fa-plus-circle mr-2"></i>Tambah Data</a>
+		<a href="<?= base_url('barang_masuk/tambah'); ?>" class="btn btn-primary mb-3  mr-2"><i class="fas fa-plus-circle mr-2"></i>Tambah Data</a>
 
 		<?php if (session()->getFlashdata('pesan')) : ?>
 			<div class="alert alert-success" role="alert">

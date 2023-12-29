@@ -172,12 +172,12 @@ class BarangKeluar extends BaseController
                 $this->barangModel->update($this->request->getVar('id_barang'), ['jumlah' => $stokBaru]);
 
                 $this->keluar->insert([
-                    'id_barang' => esc($this->request->getVar('id_barang')),
-                    'jumlah_keluar' => esc($jumlahKeluar),
-                    'harga_satuan' => esc($this->request->getVar('harga_satuan')),
-                    'total_harga' => esc($this->request->getVar('total_harga')),
-                    'tgl_keluar' => esc($this->request->getVar('tgl_keluar')),
-                    'disimpan_oleh' => esc($this->request->getVar('disimpan_oleh'))
+                    'id_barang' => $this->request->getVar('id_barang'),
+                    'jumlah_keluar' => $jumlahKeluar,
+                    'harga_satuan' => $this->request->getVar('harga_satuan'),
+                    'total_harga' => $this->request->getVar('total_harga'),
+                    'tgl_keluar' => $this->request->getVar('tgl_keluar'),
+                    'disimpan_oleh' => $this->request->getVar('disimpan_oleh')
                 ]);
 
                 session()->setFlashdata('pesan', 'Data Berhasil Ditambah');
@@ -223,6 +223,6 @@ class BarangKeluar extends BaseController
         $dompdf->setPaper('A4', 'landscape');
         $dompdf->render();
         $filename = 'barang-keluar' . date('YmdHis') . '.pdf';
-        $dompdf->stream($filename);
+        $dompdf->stream($filename, ['Attachment' => 0]);
     }
 }

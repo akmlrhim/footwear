@@ -178,13 +178,13 @@ class BarangMasuk extends BaseController
                 $this->barangModel->update($this->request->getVar('id_barang'), ['jumlah' => $stokBaru]);
 
                 $this->barangMasukModel->insert([
-                    'id_barang' => esc($this->request->getVar('id_barang')),
-                    'id_supplier' => esc($this->request->getVar('id_supplier')),
-                    'jumlah_masuk' => esc($jumlahMasuk),
-                    'harga_satuan' => esc($this->request->getVar('harga_satuan')),
-                    'total_harga' => esc($this->request->getVar('total_harga')),
-                    'tgl_masuk' => esc($this->request->getVar('tgl_masuk')),
-                    'disimpan_oleh' => esc($this->request->getVar('disimpan_oleh'))
+                    'id_barang' => $this->request->getVar('id_barang'),
+                    'id_supplier' => $this->request->getVar('id_supplier'),
+                    'jumlah_masuk' => $jumlahMasuk,
+                    'harga_satuan' => $this->request->getVar('harga_satuan'),
+                    'total_harga' => $this->request->getVar('total_harga'),
+                    'tgl_masuk' => $this->request->getVar('tgl_masuk'),
+                    'disimpan_oleh' => $this->request->getVar('disimpan_oleh')
                 ]);
                 session()->setFlashdata('pesan', 'Data Berhasil Ditambah');
                 return redirect()->to(base_url('barang_masuk'));
@@ -231,6 +231,6 @@ class BarangMasuk extends BaseController
         $dompdf->setPaper('A4', 'potrait');
         $dompdf->render();
         $filename = 'barang-masuk_' . date('YmdHis') . '.pdf';
-        $dompdf->stream($filename);
+        $dompdf->stream($filename, ['Attachment' => 0]);
     }
 }

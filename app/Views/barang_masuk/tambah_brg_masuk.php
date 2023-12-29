@@ -56,7 +56,7 @@
 					<div class="form-row mt-2">
 						<div class="col">
 							<label class="col-form-label">Total Harga </label>
-							<input type="number" readonly min="0" id="total_harga" name="total_harga" class="form-control" autocomplete="off">
+							<input type="number" readonly id="total_harga" name="total_harga" class="form-control" autocomplete="off">
 						</div>
 						<div class="col">
 							<label class="col-form-label">Tanggal Masuk </label>
@@ -89,9 +89,9 @@
 
 <script>
 	function calculateTotal() {
-		var jumlah_masuk = parseInt(document.getElementById("jumlah_masuk").value);
+		var jumlah_keluar = parseInt(document.getElementById("jumlah_masuk").value);
 		var harga_satuan = parseInt(document.getElementById("harga_satuan").value);
-		var total_harga = jumlah_masuk * harga_satuan;
+		var total_harga = jumlah_keluar * harga_satuan;
 
 		if (!isNaN(total_harga)) {
 			document.getElementById("total_harga").value = total_harga.toFixed(2);
@@ -99,6 +99,15 @@
 			document.getElementById("total_harga").value = "";
 		}
 	}
+
+	$(document).ready(function() {
+
+		// Format mata uang.
+		$('#harga_satuan').mask('000.000.000', {
+			reverse: true
+		});
+
+	})
 </script>
 
 <?= $this->endSection(); ?>
