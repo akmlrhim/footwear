@@ -11,12 +11,24 @@
 			<a href="<?= base_url('barang/cetak-barang-habis'); ?>" class="btn btn-danger mb-3"><i class="fas fa-print mr-2"></i>Cetak Barang Habis</a>
 		<?php endif; ?>
 
-
 		<?php if (session()->getFlashdata('pesan')) : ?>
 			<div class="alert alert-success" role="alert">
 				<?= session()->getFlashdata('pesan'); ?>
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
 			</div>
 		<?php endif ?>
+
+		<?php if (session()->getFlashdata('empty')) : ?>
+			<div class="alert alert-danger alert-dismissible fade show" role="alert">
+				<?= session()->getFlashdata('empty'); ?>
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		<?php endif; ?>
+
 		<div class="card">
 			<div class="card-body">
 

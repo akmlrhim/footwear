@@ -282,12 +282,16 @@ class Barang extends BaseController
         $dompdf = new Dompdf($options);
 
         $data['habis'] =  $this->barangModel->getBarangHabis();
-        $html = view('barang/rep-barang-habis', $data);
 
-        $dompdf->loadHtml($html);
-        $dompdf->setPaper('A4', 'potrait');
-        $dompdf->render();
-        $filename = 'barang-habis_' . date('YmdHis') . '.pdf';
-        $dompdf->stream($filename);
+        if (!empty($data['habis'])) {
+            $html = view('barang/rep-barang-habis', $data);
+            $dompdf->loadHtml($html);
+            $dompdf->setPaper('A4', 'potrait');
+            $dompdf->render();
+            $filename = 'barang-habis_' . date('YmdHis') . '.pdf';
+            $dompdf->stream($filename);
+        } else {
+            return redirect()->back()->with('empty', 'Tidak ada barang habis');
+        }
     }
 }

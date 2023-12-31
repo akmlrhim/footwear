@@ -114,7 +114,7 @@ class BarangKeluar extends BaseController
     {
         $data = [
             'title' => 'Footwear | Barang Keluar',
-            'judul' => 'Data Barang Keluar',
+            'judul' => 'Form Tambah Barang Keluar',
             'barang' => $this->barangModel->getBarangAda()
         ];
 
@@ -218,11 +218,16 @@ class BarangKeluar extends BaseController
             'result' => $this->keluar->filter($tglawal, $tglakhir)
         ];
 
-        $html = view('barang_keluar/filtered-data', $data);
-        $dompdf->loadHtml($html);
-        $dompdf->setPaper('A4', 'landscape');
-        $dompdf->render();
-        $filename = 'barang-keluar' . date('YmdHis') . '.pdf';
-        $dompdf->stream($filename, ['Attachment' => 0]);
+        if (!empty($data['result'])) {
+            $html = view('barang_keluar/filtered-data', $data);
+            $dompdf->loadHtml($html);
+            $dompdf->setPaper('A4', 'landscape');
+            $dompdf->render();
+            $filename = 'barang-keluar' . date('YmdHis') . '.pdf';
+            $dompdf->stream($filename, ['Attachment' => 0]);
+        } else {
+            return redirect()->to(base_url('barang_keluar/rep-barang-keluar'))
+                ->with('error', 'Tidak ada data yang terfilter');
+        }
     }
 }

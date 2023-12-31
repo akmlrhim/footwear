@@ -226,11 +226,16 @@ class BarangMasuk extends BaseController
             'result' => $this->barangMasukModel->filter($tglawal, $tglakhir)
         ];
 
-        $html = view('barang_masuk/filtered-data', $data);
-        $dompdf->loadHtml($html);
-        $dompdf->setPaper('A4', 'potrait');
-        $dompdf->render();
-        $filename = 'barang-masuk_' . date('YmdHis') . '.pdf';
-        $dompdf->stream($filename, ['Attachment' => 0]);
+        if (!empty($data['result'])) {
+            $html = view('barang_masuk/filtered-data', $data);
+            $dompdf->loadHtml($html);
+            $dompdf->setPaper('A4', 'potrait');
+            $dompdf->render();
+            $filename = 'barang-masuk_' . date('YmdHis') . '.pdf';
+            $dompdf->stream($filename, ['Attachment' => 0]); //eksekusi 
+        } else {
+            return redirect()->to(base_url('barang_masuk/rep-barang-masuk'))
+                ->with('error', 'Tidak ada data yang terfilter');
+        }
     }
 }
