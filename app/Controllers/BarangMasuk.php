@@ -11,7 +11,6 @@ use Hermawan\DataTables\DataTable;
 
 class BarangMasuk extends BaseController
 {
-
     protected $barangMasukModel;
     protected $barangModel;
     protected $supplierModel;

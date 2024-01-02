@@ -207,7 +207,6 @@ class User extends BaseController
                 ]
             ]
         ]);
-
         if ($validate) {
             $currentPassword = esc($this->request->getPost('password_lama'));
             $newPassword = esc($this->request->getPost('password_baru'));

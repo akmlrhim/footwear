@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\BarangModel;
 use App\Models\CountModel;
 
 class Dashboard extends BaseController
