@@ -79,7 +79,7 @@ class Supplier extends BaseController
                 'kontak' => $this->request->getVar('kontak'),
             ]);
             session()->setFlashdata('pesan', 'Data Berhasil Ditambahkan');
-            return redirect()->to(base_url('/supplier'));
+            return redirect()->to(base_url('supplier'));
         } else {
             session()->setFlashdata('errors', $this->validator->listErrors());
             return redirect()->back()->withInput();
@@ -123,7 +123,7 @@ class Supplier extends BaseController
                 'kontak' => $this->request->getVar('kontak'),
             ]);
             session()->setFlashdata('pesan', 'Data Berhasil Diubah');
-            return redirect()->to(base_url('/supplier'));
+            return redirect()->to(base_url('supplier'));
         } else {
             session()->setFlashdata('errors', $this->validator->listErrors());
             return redirect()->back()->withInput();
@@ -134,6 +134,6 @@ class Supplier extends BaseController
     {
         $this->supplierModel->delete($id_supplier);
         session()->setFlashdata('pesan', 'Data Berhasil Dihapus');
-        return redirect()->to(base_url('/supplier'));
+        return redirect()->to(base_url('supplier'));
     }
 }

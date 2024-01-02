@@ -7,6 +7,9 @@
 		<?php if (session()->getFlashdata('pesan')) : ?>
 			<div class="alert alert-success" role="alert">
 				<?= session()->getFlashdata('pesan'); ?>
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
 			</div>
 		<?php endif ?>
 

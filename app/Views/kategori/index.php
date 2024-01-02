@@ -77,7 +77,8 @@
 			columns: [{
 					data: 'no',
 					orderable: false
-				}, {
+				},
+				{
 					data: 'nama_kategori'
 				},
 				{

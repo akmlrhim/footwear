@@ -31,7 +31,6 @@
 
 		<div class="card">
 			<div class="card-body">
-
 				<div class="table-responsive-sm">
 					<table id="tables" class="table table-bordered text-center table-sm" style="width:100%">
 						<thead>
@@ -54,7 +53,6 @@
 		</div>
 	</div>
 </section>
-
 
 <!-- modal hapus -->
 <?php foreach ($barang as $brg) : ?>

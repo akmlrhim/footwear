@@ -51,24 +51,19 @@ class BarangKeluar extends BaseController
             ->select('id_brg_keluar, tgl_keluar, nama_barang, nama_kategori, jumlah_keluar, harga_satuan, total_harga, disimpan_oleh')
             ->join('barang', 'barang.id_barang = barang_keluar.id_barang')
             ->join('kategori', 'kategori.id_kategori = barang.id_kategori');
-
         return DataTable::of($builder)
             ->add('tgl_keluar', function ($row) {
                 return date('d/m/Y', strtotime($row->tgl_keluar));
             })
-
             ->add('harga_satuan', function ($row) {
                 return 'Rp. ' . number_format($row->harga_satuan, 0, ',', '.');
             })
-
             ->add('total_harga', function ($row) {
                 return 'Rp. ' . number_format($row->total_harga, 0, ',', '.');
             })
-
             ->add('disimpan_oleh', function ($row) {
                 return '<small class="badge badge-danger">' . esc($row->disimpan_oleh) . '</small>';
             })
-
             ->add('action', function ($row) {
                 return '
                 <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal' . $row->id_brg_keluar . '">
@@ -157,7 +152,6 @@ class BarangKeluar extends BaseController
 
         if ($validate) {
             $barang = $this->barangModel->find($this->request->getVar('id_barang'));
-
             if ($barang) {
                 $jumlahKeluar = $this->request->getVar('jumlah_keluar');
 
@@ -166,11 +160,8 @@ class BarangKeluar extends BaseController
                         ->with('errors', 'Jumlah keluar melebihi stok barang.')
                         ->withInput();
                 }
-
                 $stokBaru = $barang['jumlah'] - $jumlahKeluar;
-
                 $this->barangModel->update($this->request->getVar('id_barang'), ['jumlah' => $stokBaru]);
-
                 $this->keluar->insert([
                     'id_barang' => $this->request->getVar('id_barang'),
                     'jumlah_keluar' => $jumlahKeluar,
@@ -208,7 +199,6 @@ class BarangKeluar extends BaseController
     public function filterData()
     {
         $dompdf = new Dompdf();
-
         $tglawal = $this->request->getVar('tgl_awal');
         $tglakhir = $this->request->getVar('tgl_akhir');
 

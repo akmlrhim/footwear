@@ -40,7 +40,7 @@
 </section>
 
 
-<!-- mmodal hapus  -->
+<!-- modal hapus  -->
 <?php foreach ($keluar as $klr) : ?>
 	<div class="modal fade" id="modal<?= $klr['id_brg_keluar']; ?>" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">

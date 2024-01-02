@@ -28,7 +28,7 @@ class Barang extends BaseController
             'barang' => $this->barangModel->getBarang(),
             'kategori' => $this->kategoriModel->findAll()
         ];
-        return view('Barang/index', $data);
+        return view('barang/index', $data);
     }
 
     public function dataBarang()
@@ -140,7 +140,6 @@ class Barang extends BaseController
 
         if ($validate) {
             $file_gambar = $this->request->getFile('gambar');
-
             if ($file_gambar->getError() == 4) {
                 $nama_gambar = 'default_image.jpg';
             } else {
@@ -151,7 +150,6 @@ class Barang extends BaseController
                     return redirect()->back()->with('errors', $this->validator->listErrors());
                 }
             }
-
             $this->barangModel->insert([
                 'nama_barang' => esc($this->request->getVar('nama_barang')),
                 'id_kategori' => $this->request->getVar('id_kategori'),
@@ -243,10 +241,8 @@ class Barang extends BaseController
                 ]
             ],
         ]);
-
         if ($validate) {
             $file_gambar = $this->request->getFile('gambar');
-
             if ($file_gambar->getError() == 4) {
                 $nama_gambar = 'default_image.jpg';
             } else {
@@ -263,7 +259,6 @@ class Barang extends BaseController
                 'jumlah' => esc($this->request->getVar('jumlah')),
                 'deskripsi' => esc($this->request->getVar('deskripsi')),
             ]);
-
             session()->setFlashdata('pesan', 'Data Berhasil Diubah');
             return redirect()->to(base_url('barang'));
         } else {
@@ -280,9 +275,7 @@ class Barang extends BaseController
         $options->set('isPhpEnabled', true);
 
         $dompdf = new Dompdf($options);
-
         $data['habis'] =  $this->barangModel->getBarangHabis();
-
         if (!empty($data['habis'])) {
             $html = view('barang/rep-barang-habis', $data);
             $dompdf->loadHtml($html);

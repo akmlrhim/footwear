@@ -60,7 +60,7 @@ class User extends BaseController
         if ($this->validate([
             'nama_lengkap' => [
                 'label' => 'Nama Lengkap',
-                'rules' => 'required',
+                'rules' => 'required|is_unique[users.nama_lengkap]',
                 'errors' => [
                     'required' => '{field} Tidak Boleh Kosong.'
                 ]
@@ -90,19 +90,14 @@ class User extends BaseController
                 ]
             ]
         ])) {
-
-            $nama_lengkap = esc($this->request->getPost('nama_lengkap'));
-            $username = esc($this->request->getPost('username'));
-            $password = esc($this->request->getPost('password'));
-            $role = esc($this->request->getPost('role'));
-
+            $password = esc($this->request->getVar('password'));
             $password = password_hash("$password", PASSWORD_BCRYPT);
 
             $data = [
-                'nama_lengkap' => $nama_lengkap,
-                'username' => $username,
+                'nama_lengkap' => esc($this->request->getPost('nama_lengkap')),
+                'username' => esc($this->request->getPost('username')),
                 'password' => $password,
-                'role' => $role
+                'role' => esc($this->request->getPost('role'))
             ];
 
             $this->userModel->insert($data);
@@ -153,15 +148,11 @@ class User extends BaseController
         ]);
 
         if ($validate) {
-            $nama_lengkap = esc($this->request->getPost('nama_lengkap'));
-            $username = esc($this->request->getPost('username'));
-            $role = esc($this->request->getPost('role'));
-
             $data = [
                 'id_user' => $id,
-                'nama_lengkap' => $nama_lengkap,
-                'username' => $username,
-                'role' => $role
+                'nama_lengkap' => esc($this->request->getPost('nama_lengkap')),
+                'username' => esc($this->request->getPost('username')),
+                'role' => esc($this->request->getPost('role'))
             ];
             $this->userModel->save($data);
             return redirect()->to(base_url('user'))->with('pesan', 'Data Berhasil Diubah');
@@ -188,7 +179,7 @@ class User extends BaseController
 
     public function updatePassword()
     {
-        $loggedInUserId = session()->get('id_user');
+        $id = session()->get('id_user');
 
         $validate = $this->validate([
             'password_lama' => [
@@ -221,14 +212,13 @@ class User extends BaseController
             $currentPassword = esc($this->request->getPost('password_lama'));
             $newPassword = esc($this->request->getPost('password_baru'));
 
-            $user = $this->userModel->getUserByid($loggedInUserId);
+            $user = $this->userModel->getUserByid($id);
 
             if ($user && password_verify("$currentPassword", $user['password'])) {
                 $hashedPassword = password_hash("$newPassword", PASSWORD_DEFAULT);
 
                 // Update password dalam database
-                $this->userModel->updatePassword($loggedInUserId, $hashedPassword);
-
+                $this->userModel->updatePassword($id, $hashedPassword);
                 return redirect()->back()->with('pesan', 'Password berhasil diperbarui.');
             } else {
                 return redirect()->back()->with('passlama', 'Password lama salah.')->withInput();

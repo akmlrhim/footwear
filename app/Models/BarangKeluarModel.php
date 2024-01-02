@@ -6,10 +6,8 @@ use CodeIgniter\Model;
 
 class BarangKeluarModel extends Model
 {
-    protected $DBGroup          = 'default';
     protected $table            = 'barang_keluar';
     protected $primaryKey       = 'id_brg_keluar';
-    protected $returnType       = 'array';
 
     protected $allowedFields    = [
         'id_barang',

@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
-use PDO;
 
 class BarangModel extends Model
 {
@@ -44,6 +43,7 @@ class BarangModel extends Model
             ->where(['jumlah =' => 0])
             ->findAll();
     }
+
     public function cekDuplikat($nama_barang, $id_kategori, $id_barang = null)
     {
         $this->where('nama_barang', $nama_barang)

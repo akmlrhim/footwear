@@ -56,24 +56,19 @@ class BarangMasuk extends BaseController
             ->join('barang', 'barang.id_barang = barang_masuk.id_barang')
             ->join('kategori', 'kategori.id_kategori = barang.id_kategori')
             ->join('supplier', 'supplier.id_supplier = barang_masuk.id_supplier');
-
         return DataTable::of($builder)
             ->add('tgl_masuk', function ($row) {
                 return date('d/m/Y', strtotime($row->tgl_masuk));
             })
-
             ->add('harga_satuan', function ($row) {
                 return 'Rp. ' . number_format($row->harga_satuan, 0, ',', '.');
             })
-
             ->add('total_harga', function ($row) {
                 return 'Rp. ' . number_format($row->total_harga, 0, ',', '.');
             })
-
             ->add('disimpan_oleh', function ($row) {
                 return '<small class="badge badge-danger">' . esc($row->disimpan_oleh) . '</small>';
             })
-
             ->add('action', function ($row) {
                 return '
                 <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal' . $row->id_brg_masuk . '">
@@ -97,15 +92,12 @@ class BarangMasuk extends BaseController
             ->add('tgl_masuk', function ($row) {
                 return date('d/m/Y', strtotime($row->tgl_masuk));
             })
-
             ->add('harga_satuan', function ($row) {
                 return 'Rp. ' . number_format($row->harga_satuan, 0, ',', '.');
             })
-
             ->add('total_harga', function ($row) {
                 return 'Rp. ' . number_format($row->total_harga, 0, ',', '.');
             })
-
             ->add('action', function ($row) {
                 return '
                 <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal' . $row->id_brg_masuk . '">

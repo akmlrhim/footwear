@@ -64,7 +64,6 @@ class Kategori extends BaseController
                 ]
             ]
         ]);
-
         if ($validate) {
             $this->kategoriModel->insert([
                 'nama_kategori' => esc($this->request->getVar('nama_kategori'))
@@ -99,7 +98,6 @@ class Kategori extends BaseController
                 ]
             ]
         ]);
-
         if ($validate) {
             $this->kategoriModel->save([
                 'id_kategori' => $id,

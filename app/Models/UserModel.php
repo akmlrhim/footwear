@@ -30,9 +30,7 @@ class UserModel extends Model
 
     public function getUserByid($id)
     {
-        return $this->where('id_user', $id)
-            ->get()
-            ->getRowArray();
+        return $this->where('id_user', $id)->first();
     }
 
     public function updatePassword($id, $npass)

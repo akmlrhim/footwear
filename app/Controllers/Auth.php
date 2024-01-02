@@ -15,14 +15,13 @@ class Auth extends BaseController
         $this->userModel = new UserModel();
     }
 
-    public function index()
+    public function index() //untuk halaman login
     {
         return view('auth/form_login');
     }
 
-    public function login()
+    public function login() //untuk proses login
     {
-        // Recaptha
         $recaptchaResponse = $this->request->getPost('g-recaptcha-response');
 
         $recaptcha = new Recaptcha('6LespSApAAAAAM2OPYhvVgy_yszkXbrFEa-4Oi--');
@@ -32,7 +31,6 @@ class Auth extends BaseController
             session()->setFlashdata('pesan', 'Validasi reCAPTCHA gagal. Harap coba lagi.');
             return redirect()->to(base_url('/'))->withInput();
         }
-        // end Recaptcha
 
         $username = $this->request->getPost('username');
         $password = $this->request->getPost('password');
@@ -63,7 +61,7 @@ class Auth extends BaseController
                 session()->set('username', $user['username']);
                 session()->set('password', $user['password']);
                 session()->set('role', $user['role']);
-                return redirect()->to(base_url('dashboard'))->with('pesan', 'Login Berhasil');
+                return redirect()->to(base_url('dashboard'));
             } else {
                 session()->setFlashdata('pesan', 'Username atau password salah.');
                 return redirect()->to(base_url('/'))->withInput();
@@ -73,7 +71,7 @@ class Auth extends BaseController
         }
     }
 
-    public function logout()
+    public function logout() //untuk proses logout
     {
         session()->remove('isLogin');
         session()->remove('id_user');
