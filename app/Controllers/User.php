@@ -56,11 +56,10 @@ class User extends BaseController
 
     public function simpanUser()
     {
-
         if ($this->validate([
             'nama_lengkap' => [
                 'label' => 'Nama Lengkap',
-                'rules' => 'required|is_unique[users.nama_lengkap]',
+                'rules' => 'required',
                 'errors' => [
                     'required' => '{field} Tidak Boleh Kosong.'
                 ]

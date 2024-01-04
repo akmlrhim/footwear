@@ -127,7 +127,7 @@ class BarangKeluar extends BaseController
                 ]
             ],
             'jumlah_keluar' => [
-                'label' => 'Jumlah Masuk',
+                'label' => 'Jumlah Keluar',
                 'rules' => 'required',
                 'errors' => [
                     'required' => '{field} tidak boleh kosong.'
@@ -215,6 +215,7 @@ class BarangKeluar extends BaseController
             $dompdf->render();
             $filename = 'barang-keluar' . date('YmdHis') . '.pdf';
             $dompdf->stream($filename, ['Attachment' => 0]);
+            exit();
         } else {
             return redirect()->to(base_url('barang_keluar/rep-barang-keluar'))
                 ->with('error', 'Tidak ada data yang terfilter');

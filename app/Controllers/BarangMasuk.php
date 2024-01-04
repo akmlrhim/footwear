@@ -223,7 +223,7 @@ class BarangMasuk extends BaseController
             $dompdf->setPaper('A4', 'potrait');
             $dompdf->render();
             $filename = 'barang-masuk_' . date('YmdHis') . '.pdf';
-            $dompdf->stream($filename, ['Attachment' => 0]); //eksekusi 
+            $dompdf->stream($filename, ['Attachment' => 0]); //download
         } else {
             return redirect()->to(base_url('barang_masuk/rep-barang-masuk'))
                 ->with('error', 'Tidak ada data yang terfilter');
