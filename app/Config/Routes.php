@@ -94,3 +94,6 @@ $routes->group('user', static function ($routes) {
 	$routes->post('ubah-password', 'User::updatePassword');
 	$routes->get('data-user', 'User::dataUser');
 });
+
+
+$routes->resource('pegawai');

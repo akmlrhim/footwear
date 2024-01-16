@@ -39,7 +39,8 @@ class Filters extends BaseConfig
             'authfilter' => [
                 'except' => [
                     'auth', 'auth/*',
-                    '/'
+                    '/',
+                    'pegawai', 'pegawai/*'
                 ]
             ]
         ],
