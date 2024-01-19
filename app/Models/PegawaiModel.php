@@ -22,19 +22,7 @@ class PegawaiModel extends Model
     protected $deletedField  = 'deleted_at';
 
     // Validation
-    protected $validationRules      = [
-        'nama_lengkap' => 'required',
-        'jenis_kelamin' => 'required',
-    ];
 
-    protected $validationMessages   = [
-        'nama_lengkap' => [
-            'required' => 'Nama Lengkap Harus Diisi'
-        ],
-        'jenis_kelamin' => [
-            'required' => 'Jenis Kelamin Harus diisi'
-        ]
-    ];
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;
 

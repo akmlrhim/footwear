@@ -25,6 +25,7 @@ class Filters extends BaseConfig
         'invalidchars'  => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
         'authfilter' => \App\Filters\AuthFilter::class,
+        'cors' => \App\Filters\Cors::class
     ];
 
     /**
@@ -36,11 +37,13 @@ class Filters extends BaseConfig
      */
     public array $globals = [
         'before' => [
+            'cors' => ['filter' => 'cors', 'options' => []],
+
             'authfilter' => [
                 'except' => [
                     'auth', 'auth/*',
                     '/',
-                    'pegawai', 'pegawai/*'
+                    'pegawai', 'pegawai/*',
                 ]
             ]
         ],

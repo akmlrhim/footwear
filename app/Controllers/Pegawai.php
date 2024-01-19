@@ -18,23 +18,30 @@ class Pegawai extends BaseController
 
     public function index()
     {
+        $data = $this->pegawai->orderBy('nama_lengkap', 'asc')->findAll();
+        return $this->respond($data, 200);
+    }
+
+    public function show($id = null)
+    {
+        $this->response->setHeader('Access-Control-Allow-Origin', 'http://localhost:8100');
+        $data = $this->pegawai->where('id_pegawai', $id)->findAll();
+
+        if ($data) {
+            return $this->respond($data, 200);
+        } else {
+            return $this->failNotFound('Data tidak ditemukan');
+        }
     }
 
     public function create()
     {
-        // $data = [
-        //     'nama_lengkap' => $this->request->getVar('nama_lengkap'),
-        //     'jenis_kelamin' => $this->request->getVar('jenis_kelamin'),
-        //     'alamat'       => $this->request->getVar('alamat')
-        // ];
+        $this->response->setHeader('Access-Control-Allow-Origin', 'http://localhost:8100');
 
         $data = esc($this->request->getPost());
 
-        // $this->pegawai->save($data);
+        $this->pegawai->insert($data);
 
-        if (!$this->pegawai->save($data)) {
-            return $this->fail($this->pegawai->errors());
-        }
         $response = [
             'status' => 201,
             'error' => NULL,
@@ -42,5 +49,51 @@ class Pegawai extends BaseController
         ];
 
         return $this->respond($response);
+    }
+
+    public function update($id = null)
+    {
+
+        $this->response->setHeader('Access-Control-Allow-Origin', 'http://localhost:8100');
+
+        $data = $this->request->getRawInput();
+        $data['id_pegawai'] = $id;
+
+        $isTrue = $this->pegawai->where('id_pegawai', $id)->findAll();
+
+        if (!$isTrue) {
+            return $this->failNotFound('Data tidak ditemukan');
+        }
+
+        if (!$this->pegawai->save($data)) {
+            return $this->respond($data);
+        }
+
+        $response = [
+            'status' => 200,
+            'error' => null,
+            'messages' => "sukses diupdate"
+        ];
+
+        return $this->respond($response);
+    }
+
+    public function delete($id = null)
+    {
+        $this->response->setHeader('Access-Control-Allow-Origin', 'http://localhost:8100/$id');
+
+        $data = $this->pegawai->where('id_pegawai', $id);
+
+        if ($data) {
+            $this->pegawai->delete($id);
+            $response = [
+                'status' => 200,
+                'error' => null,
+                'message' => 'Data berhasil dihapus',
+            ];
+            return $this->respondDeleted($response);
+        } else {
+            return $this->failNotFound('Data tidak ditemukan');
+        }
     }
 }
