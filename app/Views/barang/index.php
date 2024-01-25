@@ -45,7 +45,6 @@
 							</tr>
 						</thead>
 						<tbody>
-							<!-- data ditampilkan dengan sideserver -->
 						</tbody>
 					</table>
 				</div>
