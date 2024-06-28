@@ -54,6 +54,11 @@ class User extends BaseController
         return view('user/tambah_user', $data);
     }
 
+    /**
+     * Saves a new user to the database.
+     *
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function simpanUser()
     {
         if ($this->validate([
@@ -108,6 +113,12 @@ class User extends BaseController
         }
     }
 
+    /**
+     * Retrieves the user data and renders the edit user view.
+     *
+     * @param int $id The ID of the user to be edited.
+     * @return \CodeIgniter\View\View The rendered edit user view.
+     */
     public function editUser($id)
     {
         $data = [

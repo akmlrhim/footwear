@@ -52,6 +52,7 @@
 					</p>
 				</a>
 				<ul class="nav nav-treeview" id="dropwdown">
+
 					<?php if (session()->get('role') == 'Owner') : ?>
 						<li class="nav-item">
 							<a href="<?= base_url('barang_masuk'); ?>" class="nav-link">

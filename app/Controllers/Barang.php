@@ -177,8 +177,7 @@ class Barang extends BaseController
         }
 
         $this->barangModel->delete($id);
-        session()->setFlashdata('pesan', 'Data Berhasil Dihapus');
-        return redirect()->to(base_url('barang'));
+        return redirect()->to(base_url('barang'))->with('pesan', 'Data Berhasil Dihapus');
     }
 
     public function editBarang($id)
