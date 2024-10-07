@@ -74,33 +74,4 @@ jika ingin menggunakan spark, bila langsung jalankan php spark serve diterminal 
 dan kedua user dapat melakukan ubah password sendiri
 
 
-## PROJECT DESCRIPTION
-Sistem Informasi Pendataan Stok Barang Toko Sepatu Footwear adalah
-sebuah sistem yang dirancang untuk mempermudah pengelolaan inventaris sepatu.
-Fitur inti dalam sistem ini mencakup tiga fitur utama yang sangat relevan dalam
-operasional toko sepatu, yaitu Kelola Barang, Kelola Transaksi Barang Masuk, dan
-Kelola Transaksi Barang Keluar.
-Kelola barang adalah fitur yang memungkinkan pemantauan secara rinci
-terhadap inventaris sepatu, memungkinkan pencatatan detail seperti merek, jenis
-sepatu, ukuran, warna, dan jumlah yang tersedia. Ini membantu pemilik atau staf
-toko untuk dengan mudah mengelola dan menyusun stok barang dengan sistematis.
-Kelola transaksi barang masuk adalah fitur yang berfungsi untuk pencatatan
-barang yang masuk ke toko sepatu. Ini mencakup informasi tentang pemasok,
-tanggal kedatangan barang, jumlah yang diterima, dan informasi harga.
-Dengan fitur ini, sistem menyediakan informasi yang jelas dan lengkap mengenai
-setiap barang baru yang diterima, sehingga memudahkan pemantauan dan
-pelacakan asal-usul barang tersebut.
-Kelola transaksi barang keluar adalah fitur yang berfungsi untuk mencatat
-semua barang yang dijual dari stok toko. Setiap transaksi penjualan dicatat dengan
-detail seperti tanggal penjualan, jenis sepatu yang dijual, jumlah, dan harga jualnya.
-Hal ini memungkinkan pemantauan akurat terhadap penjualan serta secara otomatis
-memperbarui stok setiap kali terjadi penjualan.
-Selain itu, sistem ini juga memiliki fitur cetak laporan. Cetak laporan ini
-mencatat beberapa data seperti data barang yang sudah dinyatakan habis,
-pencatatan transaksi barang keluar dan barang masuk perperiode. Dengan adanya
-fitur ini pengguna dapat dengan mudah melakukan pencatatan keuangan dengan
-mudah tanpa harus melakukan penghitungan secara manual.
-Dengan adanya beberapa fitur ini, sistem menyediakan solusi untuk
-manajemen stok sepatu, memungkinkan pemilik toko untuk memantau stok secara
-dengan mudah, mengoptimalkan proses pengelolaan persediaan, serta
-meminimalkan risiko kekurangan atau kelebihan stok yang tidak diinginkan.
+
